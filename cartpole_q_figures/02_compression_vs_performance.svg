@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
+<rect width="100%" height="100%" fill="#f8fafc"/>
+<text x="480.0" y="38" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Compression Ratio and Error vs TT Rank</text>
+<text x="480.0" y="64" text-anchor="middle" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="15">Compression ratio stays high at low rank while reconstruction error falls</text>
+<line x1="96" y1="544.00" x2="864" y2="544.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="549.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">5.1</text>
+<line x1="96" y1="430.50" x2="864" y2="430.50" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="435.50" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">22.6</text>
+<line x1="96" y1="317.00" x2="864" y2="317.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="322.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">100.3</text>
+<line x1="96" y1="203.50" x2="864" y2="203.50" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="208.50" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">446.4</text>
+<line x1="96" y1="90.00" x2="864" y2="90.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="95.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">1985.9</text>
+<line x1="96" y1="90" x2="96" y2="544" stroke="#0f172a" stroke-width="2"/>
+<line x1="96" y1="544" x2="864" y2="544" stroke="#0f172a" stroke-width="2"/>
+<line x1="864" y1="90" x2="864" y2="544" stroke="#0f172a" stroke-width="2"/>
+<text x="876" y="549.00" text-anchor="start" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.05</text>
+<text x="876" y="435.50" text-anchor="start" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.25</text>
+<text x="876" y="322.00" text-anchor="start" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.45</text>
+<text x="876" y="208.50" text-anchor="start" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.66</text>
+<text x="876" y="95.00" text-anchor="start" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.86</text>
+<line x1="96.00" y1="544" x2="96.00" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="96.00" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">1</text>
+<line x1="249.60" y1="544" x2="249.60" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="249.60" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">2</text>
+<line x1="403.20" y1="544" x2="403.20" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="403.20" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">4</text>
+<line x1="556.80" y1="544" x2="556.80" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="556.80" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">8</text>
+<line x1="710.40" y1="544" x2="710.40" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="710.40" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">16</text>
+<line x1="864.00" y1="544" x2="864.00" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="864.00" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">32</text>
+<polyline points="96.00,90.00 249.60,184.26 403.20,270.42 556.80,364.38 710.40,463.44 864.00,544.00" fill="none" stroke="#0f766e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="96.00" cy="90.00" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="249.60" cy="184.26" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="403.20" cy="270.42" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="556.80" cy="364.38" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="710.40" cy="463.44" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<circle cx="864.00" cy="544.00" r="5.5" fill="#0f766e" stroke="#ffffff" stroke-width="2"/>
+<polyline points="96.00,121.31 249.60,168.74 403.20,215.74 556.80,325.73 710.40,416.51 864.00,512.69" fill="none" stroke="#b45309" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 8"/>
+<circle cx="96.00" cy="121.31" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<circle cx="249.60" cy="168.74" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<circle cx="403.20" cy="215.74" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<circle cx="556.80" cy="325.73" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<circle cx="710.40" cy="416.51" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<circle cx="864.00" cy="512.69" r="5.5" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+<line x1="104" y1="84" x2="132" y2="84" stroke="#0f766e" stroke-width="4"/>
+<circle cx="118" cy="84" r="4.5" fill="#0f766e" stroke="#ffffff" stroke-width="1.5"/>
+<text x="142" y="89" text-anchor="start" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="13">Compression ratio</text>
+<line x1="104" y1="108" x2="132" y2="108" stroke="#b45309" stroke-width="4" stroke-dasharray="10 8"/>
+<circle cx="118" cy="108" r="4.5" fill="#b45309" stroke="#ffffff" stroke-width="1.5"/>
+<text x="142" y="113" text-anchor="start" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="13">Visited-bin error (right axis)</text>
+<text x="480.00" y="614" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">TT rank</text>
+<text x="28" y="317.00" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" transform="rotate(-90 28 317.00)">Compression ratio</text>
+<text x="936" y="317.00" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" transform="rotate(90 936 317.00)">Observed relative error</text>
+</svg>

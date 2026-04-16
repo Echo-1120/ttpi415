@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import asdict, dataclass
 import json
 import random
@@ -176,7 +177,10 @@ class PPOTrainer:
             is_discrete=self.agent.is_discrete,
         )
 
-    def train(self) -> dict[str, Any]:
+    def train(
+        self,
+        rollout_callback: Callable[[RolloutBuffer, torch.Tensor], None] | None = None,
+    ) -> dict[str, Any]:
         observation, _ = self.env.reset(seed=self.config.seed)
         episode_return = 0.0
         episode_returns: list[float] = []
@@ -218,6 +222,8 @@ class PPOTrainer:
                 gamma=self.config.gamma,
                 gae_lambda=self.config.gae_lambda,
             )
+            if rollout_callback is not None:
+                rollout_callback(self.buffer, last_value.clone())
             update_metrics.append(self._update())
 
         summary = {

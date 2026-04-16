@@ -1,3 +1,13 @@
+Metadata-Version: 2.4
+Name: ttpi-new
+Version: 0.1.0
+Summary: Minimal TT + deep RL research scaffold.
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: gymnasium
+Requires-Dist: numpy
+Requires-Dist: torch
+
 # TT + Deep RL Research Starter
 
 This folder turns your three staged directions into one shared prototype:
@@ -112,8 +122,7 @@ python ./analyze_cartpole_q_tensor.py \
   --rollout-steps 256 \
   --target-mode td_bootstrap \
   --tt-ranks 1,2,4,8,16,32 \
-  --output-json ./cartpole_q_diag.json \
-  --figure-dir ./cartpole_q_figures
+  --output-json ./cartpole_q_diag.json
 ```
 
 Key outputs:
@@ -128,17 +137,11 @@ Two extra diagnostics are also reported:
 
 - `visited_fraction`, to show how sparse the empirical tensor is
 - `observed_relative_frobenius_error` / `observed_max_error`, which only evaluate bins that were actually visited
-- four dependency-free SVG figures in `--figure-dir`:
-  - `01_error_vs_rank.svg`
-  - `02_compression_vs_performance.svg`
-  - `03_stage_rank_requirement.svg`
-  - `04_v_q_a_comparison.svg`
 
 Notes:
 
 - `target-mode td_bootstrap` uses `y_t = r_t + gamma * V(s_{t+1})`.
 - `target-mode returns` uses the rollout buffer returns directly.
-- The script now reports overall `Q(s,a)`, `V(s)`, and `A(s,a)` low-rank analyses, plus early / middle / late stage splits.
 - CartPole velocity dimensions are unbounded, so the default binning clips observations to
   `[-4.8, 4.8]`, `[-3.0, 3.0]`, `[-0.41887903, 0.41887903]`, and `[-3.5, 3.5]`.
 - You can override the clipping ranges with `--obs-low` and `--obs-high`.

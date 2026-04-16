@@ -1,0 +1,1841 @@
+{
+  "training_summary": {
+    "config": {
+      "env_id": "CartPole-v1",
+      "seed": 7,
+      "total_timesteps": 4096,
+      "rollout_steps": 256,
+      "update_epochs": 4,
+      "minibatch_size": 64,
+      "learning_rate": 0.0003,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "clip_coef": 0.2,
+      "ent_coef": 0.01,
+      "vf_coef": 0.5,
+      "max_grad_norm": 0.5,
+      "device": "cpu"
+    },
+    "model_config": {
+      "actor_arch": "mlp",
+      "critic_arch": "mlp",
+      "hidden_dims": [
+        64,
+        64
+      ],
+      "latent_dim": 64,
+      "activation": "tanh",
+      "tt_rank": 4,
+      "tt_order": 3
+    },
+    "episodes_finished": 88,
+    "mean_episode_return": 46.44318181818182,
+    "last_episode_return": 175.0,
+    "update_metrics": [
+      {
+        "policy_loss": -0.0056610795436427,
+        "value_loss": 41.35363841056824,
+        "entropy": 0.6893071867525578
+      },
+      {
+        "policy_loss": -0.0026358484756201506,
+        "value_loss": 43.02110838890076,
+        "entropy": 0.6798910349607468
+      },
+      {
+        "policy_loss": -0.003981067915447056,
+        "value_loss": 45.94554281234741,
+        "entropy": 0.6787271797657013
+      },
+      {
+        "policy_loss": -0.009747903677634895,
+        "value_loss": 44.31707453727722,
+        "entropy": 0.6644108928740025
+      },
+      {
+        "policy_loss": -0.006309455609880388,
+        "value_loss": 38.07726335525513,
+        "entropy": 0.6538576893508434
+      },
+      {
+        "policy_loss": -0.0072441521333530545,
+        "value_loss": 43.50269436836243,
+        "entropy": 0.6445195600390434
+      },
+      {
+        "policy_loss": -0.0028142713708803058,
+        "value_loss": 68.60110569000244,
+        "entropy": 0.634070347994566
+      },
+      {
+        "policy_loss": -0.003312055836431682,
+        "value_loss": 52.00027656555176,
+        "entropy": 0.6377984471619129
+      },
+      {
+        "policy_loss": -0.0034850797383114696,
+        "value_loss": 31.26118564605713,
+        "entropy": 0.6126431077718735
+      },
+      {
+        "policy_loss": -0.007830412650946528,
+        "value_loss": 38.66541385650635,
+        "entropy": 0.609281200915575
+      },
+      {
+        "policy_loss": -0.006403655395843089,
+        "value_loss": 42.84479069709778,
+        "entropy": 0.5993604063987732
+      },
+      {
+        "policy_loss": -0.003928274381905794,
+        "value_loss": 62.765852212905884,
+        "entropy": 0.6087542772293091
+      },
+      {
+        "policy_loss": -0.0005134668899700046,
+        "value_loss": 45.05216038227081,
+        "entropy": 0.6228659227490425
+      },
+      {
+        "policy_loss": -0.010434849420562387,
+        "value_loss": 63.17231273651123,
+        "entropy": 0.596783209592104
+      },
+      {
+        "policy_loss": -4.060007631778717e-05,
+        "value_loss": 50.978697538375854,
+        "entropy": 0.6028251200914383
+      },
+      {
+        "policy_loss": -0.0033213060232810676,
+        "value_loss": 53.63152480125427,
+        "entropy": 0.6057180799543858
+      }
+    ],
+    "actor_stats": {
+      "module_params": 8640.0
+    },
+    "critic_stats": {
+      "module_params": 8640.0
+    }
+  },
+  "diagnostics": {
+    "discretization": {
+      "state_bins": [
+        16,
+        16,
+        16,
+        16
+      ],
+      "obs_low": [
+        -4.8,
+        -3.0,
+        -0.41887903,
+        -3.5
+      ],
+      "obs_high": [
+        4.8,
+        3.0,
+        0.41887903,
+        3.5
+      ],
+      "action_bins": 2
+    },
+    "empirical_tensor": {
+      "target_mode": "td_bootstrap",
+      "gamma": 0.99,
+      "tensor_shape": [
+        16,
+        16,
+        16,
+        16,
+        2
+      ],
+      "total_bins": 131072,
+      "visited_bins": 807,
+      "visited_fraction": 0.00615692138671875,
+      "total_samples": 4096,
+      "mean_samples_per_visited_bin": 5.075588599752169,
+      "max_samples_per_bin": 90,
+      "min_samples_per_bin": 1
+    },
+    "tt_analysis": {
+      "dense_parameter_count": 131072,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.8728310227566339,
+          "max_error": 38.67564862329372,
+          "observed_relative_frobenius_error": 0.8064176781038511,
+          "observed_max_error": 38.67564862329372,
+          "parameter_count": 66,
+          "compression_ratio": 1985.939393939394,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.8048061421456315,
+          "max_error": 37.51715957649918,
+          "observed_relative_frobenius_error": 0.7210401999018548,
+          "observed_max_error": 37.51715957649918,
+          "parameter_count": 228,
+          "compression_ratio": 574.8771929824561,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.7380200830741381,
+          "max_error": 38.091139207559024,
+          "observed_relative_frobenius_error": 0.6364471800350943,
+          "observed_max_error": 38.091139207559024,
+          "parameter_count": 708,
+          "compression_ratio": 185.12994350282486,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.5667519262713269,
+          "max_error": 33.75353228283027,
+          "observed_relative_frobenius_error": 0.43848344496443076,
+          "observed_max_error": 33.75353228283027,
+          "parameter_count": 2436,
+          "compression_ratio": 53.80623973727422,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 0.3847487564182237,
+          "max_error": 30.17956866885705,
+          "observed_relative_frobenius_error": 0.2750702644103754,
+          "observed_max_error": 30.17956866885705,
+          "parameter_count": 8964,
+          "compression_ratio": 14.622043730477465,
+          "tt_ranks": [
+            1,
+            16,
+            16,
+            16,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 0.1686369666897749,
+          "max_error": 14.949473502449361,
+          "observed_relative_frobenius_error": 0.10195888777137792,
+          "observed_max_error": 14.949473502449361,
+          "parameter_count": 25860,
+          "compression_ratio": 5.068522815158546,
+          "tt_ranks": [
+            1,
+            16,
+            32,
+            32,
+            2,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": false,
+        "suggested_rank": null,
+        "score": 0.0,
+        "metric_key": "observed_relative_frobenius_error"
+      }
+    },
+    "overall_analysis": {
+      "q_tensor": {
+        "target_mode": "td_bootstrap",
+        "gamma": 0.99,
+        "tensor_shape": [
+          16,
+          16,
+          16,
+          16,
+          2
+        ],
+        "total_bins": 131072,
+        "visited_bins": 807,
+        "visited_fraction": 0.00615692138671875,
+        "total_samples": 4096,
+        "mean_samples_per_visited_bin": 5.075588599752169,
+        "max_samples_per_bin": 90,
+        "min_samples_per_bin": 1
+      },
+      "v_tensor": {
+        "target_mode": "td_bootstrap",
+        "gamma": 0.99,
+        "tensor_shape": [
+          16,
+          16,
+          16,
+          16
+        ],
+        "total_bins": 65536,
+        "visited_bins": 530,
+        "visited_fraction": 0.008087158203125,
+        "total_samples": 4096,
+        "mean_samples_per_visited_bin": 7.728301886792453,
+        "max_samples_per_bin": 152,
+        "min_samples_per_bin": 1
+      },
+      "a_tensor": {
+        "target_mode": "td_bootstrap",
+        "gamma": 0.99,
+        "tensor_shape": [
+          16,
+          16,
+          16,
+          16,
+          2
+        ],
+        "total_bins": 131072,
+        "visited_bins": 807,
+        "visited_fraction": 0.00615692138671875,
+        "total_samples": 4096,
+        "mean_samples_per_visited_bin": 5.075588599752169,
+        "max_samples_per_bin": 90,
+        "min_samples_per_bin": 1,
+        "derived_from": "Q(s,a) - V(s)"
+      },
+      "q_tt_analysis": {
+        "dense_parameter_count": 131072,
+        "rank_sweep": [
+          {
+            "tt_rank": 1,
+            "relative_frobenius_error": 0.8728310227566339,
+            "max_error": 38.67564862329372,
+            "observed_relative_frobenius_error": 0.8064176781038511,
+            "observed_max_error": 38.67564862329372,
+            "parameter_count": 66,
+            "compression_ratio": 1985.939393939394,
+            "tt_ranks": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "tt_rank": 2,
+            "relative_frobenius_error": 0.8048061421456315,
+            "max_error": 37.51715957649918,
+            "observed_relative_frobenius_error": 0.7210401999018548,
+            "observed_max_error": 37.51715957649918,
+            "parameter_count": 228,
+            "compression_ratio": 574.8771929824561,
+            "tt_ranks": [
+              1,
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 4,
+            "relative_frobenius_error": 0.7380200830741381,
+            "max_error": 38.091139207559024,
+            "observed_relative_frobenius_error": 0.6364471800350943,
+            "observed_max_error": 38.091139207559024,
+            "parameter_count": 708,
+            "compression_ratio": 185.12994350282486,
+            "tt_ranks": [
+              1,
+              4,
+              4,
+              4,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 8,
+            "relative_frobenius_error": 0.5667519262713269,
+            "max_error": 33.75353228283027,
+            "observed_relative_frobenius_error": 0.43848344496443076,
+            "observed_max_error": 33.75353228283027,
+            "parameter_count": 2436,
+            "compression_ratio": 53.80623973727422,
+            "tt_ranks": [
+              1,
+              8,
+              8,
+              8,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 16,
+            "relative_frobenius_error": 0.3847487564182237,
+            "max_error": 30.17956866885705,
+            "observed_relative_frobenius_error": 0.2750702644103754,
+            "observed_max_error": 30.17956866885705,
+            "parameter_count": 8964,
+            "compression_ratio": 14.622043730477465,
+            "tt_ranks": [
+              1,
+              16,
+              16,
+              16,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 32,
+            "relative_frobenius_error": 0.1686369666897749,
+            "max_error": 14.949473502449361,
+            "observed_relative_frobenius_error": 0.10195888777137792,
+            "observed_max_error": 14.949473502449361,
+            "parameter_count": 25860,
+            "compression_ratio": 5.068522815158546,
+            "tt_ranks": [
+              1,
+              16,
+              32,
+              32,
+              2,
+              1
+            ]
+          }
+        ],
+        "knee": {
+          "has_clear_knee": false,
+          "suggested_rank": null,
+          "score": 0.0,
+          "metric_key": "observed_relative_frobenius_error"
+        }
+      },
+      "v_tt_analysis": {
+        "dense_parameter_count": 65536,
+        "rank_sweep": [
+          {
+            "tt_rank": 1,
+            "relative_frobenius_error": 0.8590647252498985,
+            "max_error": 38.05537544329459,
+            "observed_relative_frobenius_error": 0.7844103249164964,
+            "observed_max_error": 38.05537544329459,
+            "parameter_count": 64,
+            "compression_ratio": 1024.0,
+            "tt_ranks": [
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "tt_rank": 2,
+            "relative_frobenius_error": 0.7755125253543431,
+            "max_error": 37.0939341850942,
+            "observed_relative_frobenius_error": 0.6778700639115691,
+            "observed_max_error": 37.0939341850942,
+            "parameter_count": 192,
+            "compression_ratio": 341.3333333333333,
+            "tt_ranks": [
+              1,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 4,
+            "relative_frobenius_error": 0.694239720927579,
+            "max_error": 35.80093795534079,
+            "observed_relative_frobenius_error": 0.5847634025142289,
+            "observed_max_error": 35.80093795534079,
+            "parameter_count": 640,
+            "compression_ratio": 102.4,
+            "tt_ranks": [
+              1,
+              4,
+              4,
+              4,
+              1
+            ]
+          },
+          {
+            "tt_rank": 8,
+            "relative_frobenius_error": 0.5044171488923958,
+            "max_error": 31.50337202523105,
+            "observed_relative_frobenius_error": 0.3874489433017229,
+            "observed_max_error": 31.50337202523105,
+            "parameter_count": 2304,
+            "compression_ratio": 28.444444444444443,
+            "tt_ranks": [
+              1,
+              8,
+              8,
+              8,
+              1
+            ]
+          },
+          {
+            "tt_rank": 16,
+            "relative_frobenius_error": 0.31335563749375633,
+            "max_error": 21.523984518941482,
+            "observed_relative_frobenius_error": 0.21112664387786503,
+            "observed_max_error": 21.523984518941482,
+            "parameter_count": 8704,
+            "compression_ratio": 7.529411764705882,
+            "tt_ranks": [
+              1,
+              16,
+              16,
+              16,
+              1
+            ]
+          },
+          {
+            "tt_rank": 32,
+            "relative_frobenius_error": 0.0903543976305047,
+            "max_error": 5.781523941588841,
+            "observed_relative_frobenius_error": 0.04748825965460048,
+            "observed_max_error": 5.781523941588841,
+            "parameter_count": 16896,
+            "compression_ratio": 3.878787878787879,
+            "tt_ranks": [
+              1,
+              16,
+              32,
+              16,
+              1
+            ]
+          }
+        ],
+        "knee": {
+          "has_clear_knee": false,
+          "suggested_rank": null,
+          "score": 0.0,
+          "metric_key": "observed_relative_frobenius_error"
+        }
+      },
+      "a_tt_analysis": {
+        "dense_parameter_count": 131072,
+        "rank_sweep": [
+          {
+            "tt_rank": 1,
+            "relative_frobenius_error": 0.9786517684316488,
+            "max_error": 39.07618355218115,
+            "observed_relative_frobenius_error": 1.1284140080199478,
+            "observed_max_error": 17.129014423966193,
+            "parameter_count": 66,
+            "compression_ratio": 1985.939393939394,
+            "tt_ranks": [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "tt_rank": 2,
+            "relative_frobenius_error": 0.9451167721793685,
+            "max_error": 39.73769622144177,
+            "observed_relative_frobenius_error": 1.1322291383974499,
+            "observed_max_error": 17.471054444099206,
+            "parameter_count": 228,
+            "compression_ratio": 574.8771929824561,
+            "tt_ranks": [
+              1,
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 4,
+            "relative_frobenius_error": 0.8825255722941874,
+            "max_error": 36.705958234754036,
+            "observed_relative_frobenius_error": 1.1873129473434805,
+            "observed_max_error": 17.231850628832746,
+            "parameter_count": 708,
+            "compression_ratio": 185.12994350282486,
+            "tt_ranks": [
+              1,
+              4,
+              4,
+              4,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 8,
+            "relative_frobenius_error": 0.7176423019631474,
+            "max_error": 34.94836567165688,
+            "observed_relative_frobenius_error": 1.2140579851678068,
+            "observed_max_error": 20.491816319516197,
+            "parameter_count": 2436,
+            "compression_ratio": 53.80623973727422,
+            "tt_ranks": [
+              1,
+              8,
+              8,
+              8,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 16,
+            "relative_frobenius_error": 0.4976348614710856,
+            "max_error": 30.96081356835991,
+            "observed_relative_frobenius_error": 0.9224017701919521,
+            "observed_max_error": 13.975033438982287,
+            "parameter_count": 8964,
+            "compression_ratio": 14.622043730477465,
+            "tt_ranks": [
+              1,
+              16,
+              16,
+              16,
+              2,
+              1
+            ]
+          },
+          {
+            "tt_rank": 32,
+            "relative_frobenius_error": 0.21813101394675719,
+            "max_error": 17.399339171934102,
+            "observed_relative_frobenius_error": 0.41841474455666205,
+            "observed_max_error": 6.417612096252573,
+            "parameter_count": 25860,
+            "compression_ratio": 5.068522815158546,
+            "tt_ranks": [
+              1,
+              16,
+              32,
+              32,
+              2,
+              1
+            ]
+          }
+        ],
+        "knee": {
+          "has_clear_knee": false,
+          "suggested_rank": null,
+          "score": 0.06867430288824028,
+          "metric_key": "observed_relative_frobenius_error"
+        }
+      }
+    },
+    "stage_analysis": {
+      "early": {
+        "q_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 318,
+          "visited_fraction": 0.0024261474609375,
+          "total_samples": 1536,
+          "mean_samples_per_visited_bin": 4.830188679245283,
+          "max_samples_per_bin": 37,
+          "min_samples_per_bin": 1
+        },
+        "v_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "total_bins": 65536,
+          "visited_bins": 201,
+          "visited_fraction": 0.0030670166015625,
+          "total_samples": 1536,
+          "mean_samples_per_visited_bin": 7.641791044776119,
+          "max_samples_per_bin": 62,
+          "min_samples_per_bin": 1
+        },
+        "a_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 318,
+          "visited_fraction": 0.0024261474609375,
+          "total_samples": 1536,
+          "mean_samples_per_visited_bin": 4.830188679245283,
+          "max_samples_per_bin": 37,
+          "min_samples_per_bin": 1,
+          "derived_from": "Q(s,a) - V(s)"
+        },
+        "q_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.8094671623900056,
+              "max_error": 5.289930083225599,
+              "observed_relative_frobenius_error": 0.7215309161650476,
+              "observed_max_error": 5.289930083225599,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.6935500660520657,
+              "max_error": 5.2015999235198365,
+              "observed_relative_frobenius_error": 0.5871102404180907,
+              "observed_max_error": 5.2015999235198365,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.5744629574326815,
+              "max_error": 4.907748181272103,
+              "observed_relative_frobenius_error": 0.4779747160743296,
+              "observed_max_error": 4.907748181272103,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.3903446145739706,
+              "max_error": 4.710998202452614,
+              "observed_relative_frobenius_error": 0.32646476351925535,
+              "observed_max_error": 4.710998202452614,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.08093527624047261,
+              "max_error": 2.83615779876709,
+              "observed_relative_frobenius_error": 0.07691875279907177,
+              "observed_max_error": 2.83615779876709,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 2.5854377205229715e-15,
+              "max_error": 1.509903313490213e-14,
+              "observed_relative_frobenius_error": 1.7622915895374094e-15,
+              "observed_max_error": 1.509903313490213e-14,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "v_tt_analysis": {
+          "dense_parameter_count": 65536,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.806476211250649,
+              "max_error": 5.185508547184383,
+              "observed_relative_frobenius_error": 0.7071004449393886,
+              "observed_max_error": 5.185508547184383,
+              "parameter_count": 64,
+              "compression_ratio": 1024.0,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.6758985793603907,
+              "max_error": 5.065271408127912,
+              "observed_relative_frobenius_error": 0.5581780496450829,
+              "observed_max_error": 5.065271408127912,
+              "parameter_count": 192,
+              "compression_ratio": 341.3333333333333,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.520051083261228,
+              "max_error": 4.1380473549530326,
+              "observed_relative_frobenius_error": 0.4317968135552542,
+              "observed_max_error": 4.1380473549530326,
+              "parameter_count": 640,
+              "compression_ratio": 102.4,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.29721136284492583,
+              "max_error": 2.83615779876709,
+              "observed_relative_frobenius_error": 0.24463180332000806,
+              "observed_max_error": 2.83615779876709,
+              "parameter_count": 2304,
+              "compression_ratio": 28.444444444444443,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.06376337981612164,
+              "max_error": 1.754736400141753,
+              "observed_relative_frobenius_error": 0.04953256170635089,
+              "observed_max_error": 1.754736400141753,
+              "parameter_count": 8704,
+              "compression_ratio": 7.529411764705882,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 1.6846791066266252e-15,
+              "max_error": 1.3813311312980004e-14,
+              "observed_relative_frobenius_error": 1.0758027722542617e-15,
+              "observed_max_error": 9.769962616701378e-15,
+              "parameter_count": 16896,
+              "compression_ratio": 3.878787878787879,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                16,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "a_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.9778006642839002,
+              "max_error": 5.717562149199488,
+              "observed_relative_frobenius_error": 1.0438384927266555,
+              "observed_max_error": 2.917596924766062,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.9101831404050886,
+              "max_error": 5.252320697870186,
+              "observed_relative_frobenius_error": 1.024449402946583,
+              "observed_max_error": 2.725775024941739,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.8004472061186666,
+              "max_error": 5.225815398920907,
+              "observed_relative_frobenius_error": 0.9605918495627958,
+              "observed_max_error": 2.685296566713091,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.5842410262848007,
+              "max_error": 4.838231328227969,
+              "observed_relative_frobenius_error": 0.7266858554198575,
+              "observed_max_error": 2.0029568360606382,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.1467347034888188,
+              "max_error": 2.83615779876709,
+              "observed_relative_frobenius_error": 0.17345815713945467,
+              "observed_max_error": 1.785206032489668,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 2.269115426974193e-15,
+              "max_error": 1.687538997430238e-14,
+              "observed_relative_frobenius_error": 2.7559537765173943e-15,
+              "observed_max_error": 8.493206138382448e-15,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        }
+      },
+      "middle": {
+        "q_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 342,
+          "visited_fraction": 0.0026092529296875,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 3.742690058479532,
+          "max_samples_per_bin": 42,
+          "min_samples_per_bin": 1
+        },
+        "v_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "total_bins": 65536,
+          "visited_bins": 226,
+          "visited_fraction": 0.003448486328125,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 5.663716814159292,
+          "max_samples_per_bin": 66,
+          "min_samples_per_bin": 1
+        },
+        "a_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 342,
+          "visited_fraction": 0.0026092529296875,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 3.742690058479532,
+          "max_samples_per_bin": 42,
+          "min_samples_per_bin": 1,
+          "derived_from": "Q(s,a) - V(s)"
+        },
+        "q_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.8270282046849277,
+              "max_error": 23.5069929765022,
+              "observed_relative_frobenius_error": 0.7360271904819775,
+              "observed_max_error": 23.5069929765022,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.7012892651579502,
+              "max_error": 20.4995790674958,
+              "observed_relative_frobenius_error": 0.5961949423907076,
+              "observed_max_error": 20.4995790674958,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.5741742973247234,
+              "max_error": 18.832136883467413,
+              "observed_relative_frobenius_error": 0.4730011583225515,
+              "observed_max_error": 18.832136883467413,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.4148298483359172,
+              "max_error": 17.614267496323947,
+              "observed_relative_frobenius_error": 0.33451693245396036,
+              "observed_max_error": 17.614267496323947,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.17050204880188224,
+              "max_error": 16.38767383217627,
+              "observed_relative_frobenius_error": 0.1354221082988245,
+              "observed_max_error": 16.38767383217627,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 2.3223561784359026e-15,
+              "max_error": 6.572520305780927e-14,
+              "observed_relative_frobenius_error": 1.7062918220717032e-15,
+              "observed_max_error": 6.572520305780927e-14,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "v_tt_analysis": {
+          "dense_parameter_count": 65536,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.810376239863373,
+              "max_error": 21.87522915490745,
+              "observed_relative_frobenius_error": 0.7165579099614646,
+              "observed_max_error": 21.87522915490745,
+              "parameter_count": 64,
+              "compression_ratio": 1024.0,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.6755221044782868,
+              "max_error": 19.85795530634362,
+              "observed_relative_frobenius_error": 0.5766042628818061,
+              "observed_max_error": 19.85795530634362,
+              "parameter_count": 192,
+              "compression_ratio": 341.3333333333333,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.5286556647036181,
+              "max_error": 17.402820926570534,
+              "observed_relative_frobenius_error": 0.4350219281882167,
+              "observed_max_error": 17.402820926570534,
+              "parameter_count": 640,
+              "compression_ratio": 102.4,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.35424248751807214,
+              "max_error": 16.533607548983937,
+              "observed_relative_frobenius_error": 0.27613939885216315,
+              "observed_max_error": 16.533607548983937,
+              "parameter_count": 2304,
+              "compression_ratio": 28.444444444444443,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.16202618330046473,
+              "max_error": 7.194860929254324,
+              "observed_relative_frobenius_error": 0.10570445436358487,
+              "observed_max_error": 7.194860929254324,
+              "parameter_count": 8704,
+              "compression_ratio": 7.529411764705882,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 1.7845639994842463e-15,
+              "max_error": 4.618527782440651e-14,
+              "observed_relative_frobenius_error": 1.3235079824479981e-15,
+              "observed_max_error": 4.618527782440651e-14,
+              "parameter_count": 16896,
+              "compression_ratio": 3.878787878787879,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                16,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "a_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.9695655669690376,
+              "max_error": 22.408285562428908,
+              "observed_relative_frobenius_error": 1.2192874476561377,
+              "observed_max_error": 10.715136399368175,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.9113810754609873,
+              "max_error": 21.21298587660834,
+              "observed_relative_frobenius_error": 1.2063970022027957,
+              "observed_max_error": 10.955505985713597,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.7897729560317908,
+              "max_error": 19.71877305115499,
+              "observed_relative_frobenius_error": 1.1280671420449555,
+              "observed_max_error": 11.234528728450268,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.5643292623565109,
+              "max_error": 17.593525252100097,
+              "observed_relative_frobenius_error": 1.0389244572996552,
+              "observed_max_error": 9.322628655730165,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.22825697868635347,
+              "max_error": 8.547490256956243,
+              "observed_relative_frobenius_error": 0.21746979238768255,
+              "observed_max_error": 2.7691240736519642,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 5.5877616104697166e-15,
+              "max_error": 1.640355106008919e-13,
+              "observed_relative_frobenius_error": 8.084197311317635e-15,
+              "observed_max_error": 7.904787935331115e-14,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        }
+      },
+      "late": {
+        "q_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 544,
+          "visited_fraction": 0.004150390625,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 2.3529411764705883,
+          "max_samples_per_bin": 21,
+          "min_samples_per_bin": 1
+        },
+        "v_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16
+          ],
+          "total_bins": 65536,
+          "visited_bins": 378,
+          "visited_fraction": 0.005767822265625,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 3.386243386243386,
+          "max_samples_per_bin": 35,
+          "min_samples_per_bin": 1
+        },
+        "a_tensor": {
+          "target_mode": "td_bootstrap",
+          "gamma": 0.99,
+          "tensor_shape": [
+            16,
+            16,
+            16,
+            16,
+            2
+          ],
+          "total_bins": 131072,
+          "visited_bins": 544,
+          "visited_fraction": 0.004150390625,
+          "total_samples": 1280,
+          "mean_samples_per_visited_bin": 2.3529411764705883,
+          "max_samples_per_bin": 21,
+          "min_samples_per_bin": 1,
+          "derived_from": "Q(s,a) - V(s)"
+        },
+        "q_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.8601148756885117,
+              "max_error": 38.80389011760436,
+              "observed_relative_frobenius_error": 0.7864211498858856,
+              "observed_max_error": 38.80389011760436,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.7803706995427798,
+              "max_error": 38.14254506547874,
+              "observed_relative_frobenius_error": 0.6838620714109233,
+              "observed_max_error": 38.14254506547874,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.7182211688451372,
+              "max_error": 36.6847763003498,
+              "observed_relative_frobenius_error": 0.6170058756227648,
+              "observed_max_error": 36.6847763003498,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.5547477021579432,
+              "max_error": 38.09707686039962,
+              "observed_relative_frobenius_error": 0.42680099054521287,
+              "observed_max_error": 38.09707686039962,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.3774062994571952,
+              "max_error": 27.42428838365637,
+              "observed_relative_frobenius_error": 0.24976366840492958,
+              "observed_max_error": 27.42428838365637,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 0.1502305298890892,
+              "max_error": 16.134824108414517,
+              "observed_relative_frobenius_error": 0.07734872800785343,
+              "observed_max_error": 16.134824108414517,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "v_tt_analysis": {
+          "dense_parameter_count": 65536,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.8474043847906281,
+              "max_error": 38.236172597134825,
+              "observed_relative_frobenius_error": 0.7631756469797907,
+              "observed_max_error": 38.236172597134825,
+              "parameter_count": 64,
+              "compression_ratio": 1024.0,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.7514026100762339,
+              "max_error": 37.83024139960227,
+              "observed_relative_frobenius_error": 0.643247581471429,
+              "observed_max_error": 37.83024139960227,
+              "parameter_count": 192,
+              "compression_ratio": 341.3333333333333,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.6744229821978877,
+              "max_error": 34.294735010121826,
+              "observed_relative_frobenius_error": 0.5654067148225614,
+              "observed_max_error": 34.294735010121826,
+              "parameter_count": 640,
+              "compression_ratio": 102.4,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.494409533301044,
+              "max_error": 34.871951420280546,
+              "observed_relative_frobenius_error": 0.3648030695327194,
+              "observed_max_error": 34.871951420280546,
+              "parameter_count": 2304,
+              "compression_ratio": 28.444444444444443,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.3025896635753075,
+              "max_error": 23.300821638320222,
+              "observed_relative_frobenius_error": 0.19552620123044429,
+              "observed_max_error": 23.300821638320222,
+              "parameter_count": 8704,
+              "compression_ratio": 7.529411764705882,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 0.08726785208667755,
+              "max_error": 5.763785615777341,
+              "observed_relative_frobenius_error": 0.03499723491957184,
+              "observed_max_error": 5.763785615777341,
+              "parameter_count": 16896,
+              "compression_ratio": 3.878787878787879,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                16,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.0,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        },
+        "a_tt_analysis": {
+          "dense_parameter_count": 131072,
+          "rank_sweep": [
+            {
+              "tt_rank": 1,
+              "relative_frobenius_error": 0.9763050793908834,
+              "max_error": 39.07640735252535,
+              "observed_relative_frobenius_error": 1.4907141381307056,
+              "observed_max_error": 15.465480403179027,
+              "parameter_count": 66,
+              "compression_ratio": 1985.939393939394,
+              "tt_ranks": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "tt_rank": 2,
+              "relative_frobenius_error": 0.9421913315007998,
+              "max_error": 39.23857837238713,
+              "observed_relative_frobenius_error": 1.9543239515475528,
+              "observed_max_error": 17.346340277325424,
+              "parameter_count": 228,
+              "compression_ratio": 574.8771929824561,
+              "tt_ranks": [
+                1,
+                2,
+                2,
+                2,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 4,
+              "relative_frobenius_error": 0.8744045989088828,
+              "max_error": 39.314599557744295,
+              "observed_relative_frobenius_error": 1.8532217751871831,
+              "observed_max_error": 21.72268154996673,
+              "parameter_count": 708,
+              "compression_ratio": 185.12994350282486,
+              "tt_ranks": [
+                1,
+                4,
+                4,
+                4,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 8,
+              "relative_frobenius_error": 0.71845152547645,
+              "max_error": 35.99131280435252,
+              "observed_relative_frobenius_error": 2.142239731531073,
+              "observed_max_error": 21.220099425801948,
+              "parameter_count": 2436,
+              "compression_ratio": 53.80623973727422,
+              "tt_ranks": [
+                1,
+                8,
+                8,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 16,
+              "relative_frobenius_error": 0.4929859861133622,
+              "max_error": 29.015409283618943,
+              "observed_relative_frobenius_error": 1.5976231432923806,
+              "observed_max_error": 14.058738377669616,
+              "parameter_count": 8964,
+              "compression_ratio": 14.622043730477465,
+              "tt_ranks": [
+                1,
+                16,
+                16,
+                16,
+                2,
+                1
+              ]
+            },
+            {
+              "tt_rank": 32,
+              "relative_frobenius_error": 0.1889519831607081,
+              "max_error": 16.144185025739443,
+              "observed_relative_frobenius_error": 0.5870324505689082,
+              "observed_max_error": 6.328629121605875,
+              "parameter_count": 25860,
+              "compression_ratio": 5.068522815158546,
+              "tt_ranks": [
+                1,
+                16,
+                32,
+                32,
+                2,
+                1
+              ]
+            }
+          ],
+          "knee": {
+            "has_clear_knee": false,
+            "suggested_rank": null,
+            "score": 0.2800996617947512,
+            "metric_key": "observed_relative_frobenius_error"
+          }
+        }
+      }
+    },
+    "figures": {
+      "error_vs_rank": "/home/s110/code/ttpi_new/cartpole_q_figures/01_error_vs_rank.svg",
+      "compression_vs_performance": "/home/s110/code/ttpi_new/cartpole_q_figures/02_compression_vs_performance.svg",
+      "stage_rank_requirement": "/home/s110/code/ttpi_new/cartpole_q_figures/03_stage_rank_requirement.svg",
+      "v_q_a_comparison": "/home/s110/code/ttpi_new/cartpole_q_figures/04_v_q_a_comparison.svg"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+README.md
+README_tt_deep_rl.md
+pyproject.toml
+tt_deep_rl/__init__.py
+tt_deep_rl/cartpole_diagnostics.py
+tt_deep_rl/networks.py
+tt_deep_rl/ppo.py
+tt_deep_rl/tt_layers.py
+ttpi_new.egg-info/PKG-INFO
+ttpi_new.egg-info/SOURCES.txt
+ttpi_new.egg-info/dependency_links.txt
+ttpi_new.egg-info/requires.txt
+ttpi_new.egg-info/top_level.txt
