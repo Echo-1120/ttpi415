@@ -29,6 +29,10 @@ def parse_args() -> argparse.Namespace:
 def parse_hidden_dims(value: str) -> tuple[int, ...]:
     return tuple(int(token) for token in value.split(",") if token)
 
+def current_epsilon(self, env_step: int) -> float:
+    frac = min(1.0, env_step / self.config.epsilon_decay_steps)
+    return self.config.epsilon_start + frac * (self.config.epsilon_end - self.config.epsilon_start)
+
 def main() -> None:
     args = parse_args()
     hidden_dims = parse_hidden_dims(args.hidden_dims)

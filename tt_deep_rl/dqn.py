@@ -25,11 +25,14 @@ class DQNConfig:
     total_timesteps: int = 20000          # CartPole 通常需要更多步数
     buffer_size: int = 10000
     batch_size: int = 64
-    learning_rate: float = 1e-3
-    gamma: float = 0.99
-    target_update_freq: int = 100         # 每多少 step 更新 target net
+    # DQNConfig
+    learning_starts: int = 2000
     epsilon_start: float = 1.0
     epsilon_end: float = 0.05
+    learning_rate: float = 3e-4
+    gamma: float = 0.99
+    target_update_freq: int = 500         # 每多少 step 更新 target net
+    epsilon_decay_steps: int = 20000        # 从 epsilon_start 线性衰减到 epsilon_end 的步数
     epsilon_decay: float = 0.995
     device: str = "cpu"
 
@@ -91,8 +94,8 @@ class DQNTrainer:
         return q_values.argmax(dim=1).item()
 
     def train_one_step(self) -> dict[str, float]:
-        if len(self.replay) < self.config.batch_size:
-            return {"q_loss": 0.0}
+        if len(self.replay) < max(self.config.batch_size, self.config.learning_starts):
+            return {"q_loss": 0.0, "epsilon": self.epsilon}
 
         obs, action, reward, next_obs, done = self.replay.sample(self.config.batch_size)
         obs = obs.to(self.device)
@@ -109,7 +112,7 @@ class DQNTrainer:
             target = reward + self.config.gamma * (1 - done) * next_q_target
 
         current_q = self.online_q(obs).gather(1, action.unsqueeze(1)).squeeze(1)
-        loss = F.mse_loss(current_q, target)
+        loss = F.smooth_l1_loss(current_q, target)
 
         self.optimizer.zero_grad()
         loss.backward()
@@ -121,10 +124,12 @@ class DQNTrainer:
         if self.step_counter % self.config.target_update_freq == 0:
             self.target_q.load_state_dict(self.online_q.state_dict())
 
-        # epsilon decay
-        self.epsilon = max(self.config.epsilon_end, self.epsilon * self.config.epsilon_decay)
 
         return {"q_loss": loss.item(), "epsilon": self.epsilon}
+
+    def current_epsilon(self, env_step: int) -> float:
+        frac = min(1.0, env_step / self.config.epsilon_decay_steps)
+        return self.config.epsilon_start + frac * (self.config.epsilon_end - self.config.epsilon_start)
 
     def train(self) -> dict[str, Any]:
         obs, _ = self.env.reset()
@@ -133,6 +138,7 @@ class DQNTrainer:
         metrics = []
 
         for step in range(self.config.total_timesteps):
+            self.epsilon = self.current_epsilon(step)
             action = self.select_action(obs)
             next_obs, reward, terminated, truncated, _ = self.env.step(action)
             done = terminated or truncated
@@ -162,4 +168,5 @@ class DQNTrainer:
             "final_avg_return": float(np.mean(episode_returns[-20:])) if episode_returns else 0.0,
             "metrics": metrics,
             "compression": self.online_q.compression_stats()
+        
         }
