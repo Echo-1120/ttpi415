@@ -284,3 +284,34 @@ class ActorCritic(nn.Module):
         clipped = torch.clamp(actions.squeeze(0), low, high)
         return clipped.cpu().numpy()
 
+# ==================== 新增：TT 兼容的 QNetwork ====================
+class QNetwork(nn.Module):
+    """输出每个离散动作的 Q 值（shape: [batch, action_dim]）
+    完全复用现有的 build_backbone，支持 mlp / tt / hybrid
+    """
+    def __init__(
+        self,
+        obs_dim: int,
+        action_dim: int,
+        config: ModelConfig,
+    ) -> None:
+        super().__init__()
+        self.backbone = build_backbone(
+            arch=config.critic_arch,          # 复用 critic-arch 参数
+            input_dim=obs_dim,
+            hidden_dims=config.hidden_dims,
+            output_dim=config.latent_dim,
+            activation_name=config.activation,
+            tt_rank=config.tt_rank,
+            tt_order=config.tt_order,
+        )
+        self.q_head = nn.Linear(config.latent_dim, action_dim)
+
+    def forward(self, observations: torch.Tensor) -> torch.Tensor:
+        features = self.backbone(observations)
+        return self.q_head(features)
+
+    def compression_stats(self) -> dict[str, float]:
+        stats = self.backbone.compression_stats()
+        stats["module_params"] = float(sum(p.numel() for p in self.parameters()))
+        return stats
