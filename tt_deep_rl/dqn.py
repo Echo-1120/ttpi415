@@ -113,6 +113,7 @@ class DQNTrainer:
 
         self.optimizer.zero_grad()
         loss.backward()
+        torch.nn.utils.clip_grad_norm_(self.online_q.parameters(), max_norm=10.0)
         self.optimizer.step()
 
         # 更新 target net
