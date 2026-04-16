@@ -33,8 +33,10 @@ class DQNConfig:
     gamma: float = 0.99
     target_update_freq: int = 500         # 每多少 step 更新 target net
     epsilon_decay_steps: int = 20000        # 从 epsilon_start 线性衰减到 epsilon_end 的步数
-    epsilon_decay: float = 0.995
+    learning_starts: int = 2000
+    epsilon_decay_steps: int = 20000
     device: str = "cpu"
+    
 
 class ReplayBuffer:
     def __init__(self, capacity: int, obs_dim: int):
