@@ -23,16 +23,16 @@ def set_seed(seed: int) -> None:
 class DQNConfig:
     env_id: str = "CartPole-v1"
     seed: int = 7
-    total_timesteps: int = 20000
-    buffer_size: int = 10000
-    batch_size: int = 64
+    total_timesteps: int = 100000
+    buffer_size: int = 50000
+    batch_size: int = 128
     learning_starts: int = 5000
     epsilon_start: float = 1.0
     epsilon_end: float = 0.05
     epsilon_decay_steps: int = 50000
-    learning_rate: float = 3e-4
+    learning_rate: float = 1e-4
     gamma: float = 0.99
-    target_update_freq: int = 500
+    target_update_freq: int = 1000
     train_freq: int = 4
     gradient_steps: int = 1
     eval_freq: int = 5000
@@ -109,7 +109,8 @@ class DQNTrainer:
         return float(max(self.config.epsilon_end, epsilon))
 
     def train_one_step(self) -> dict[str, float]:
-        if len(self.replay) < self.config.batch_size:
+        min_replay_size = max(self.config.batch_size, self.config.learning_starts)
+        if len(self.replay) < min_replay_size:
             return {"q_loss": 0.0, "epsilon": self.epsilon}
 
         obs, action, reward, next_obs, done = self.replay.sample(self.config.batch_size)

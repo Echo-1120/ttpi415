@@ -8,7 +8,7 @@ import torch
 from torch import nn
 from torch.distributions import Categorical, Normal
 
-from tt_deep_rl.tt_layers import TTMLP
+from tt_deep_rl.tt_layers import MixedTTMLP, TTMLP
 
 
 def _activation_from_name(name: str) -> type[nn.Module]:
@@ -56,6 +56,33 @@ class TTBackbone(nn.Module):
     ) -> None:
         super().__init__()
         self.net = TTMLP(
+            input_dim=input_dim,
+            hidden_dims=hidden_dims,
+            output_dim=output_dim,
+            tt_rank=tt_rank,
+            tt_order=tt_order,
+            activation=activation,
+        )
+
+    def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+        return self.net(inputs)
+
+    def compression_stats(self) -> dict[str, float]:
+        return self.net.compression_stats()
+
+
+class MixedTTBackbone(nn.Module):
+    def __init__(
+        self,
+        input_dim: int,
+        hidden_dims: tuple[int, ...],
+        output_dim: int,
+        activation: type[nn.Module],
+        tt_rank: int,
+        tt_order: int,
+    ) -> None:
+        super().__init__()
+        self.net = MixedTTMLP(
             input_dim=input_dim,
             hidden_dims=hidden_dims,
             output_dim=output_dim,
@@ -156,7 +183,7 @@ class ModelConfig:
     critic_arch: str = "mlp"
     hidden_dims: tuple[int, ...] = (64, 64)
     latent_dim: int = 64
-    activation: str = "tanh"
+    activation: str = "relu"
     tt_rank: int = 4
     tt_order: int = 3
 
@@ -296,15 +323,27 @@ class QNetwork(nn.Module):
         config: ModelConfig,
     ) -> None:
         super().__init__()
-        self.backbone = build_backbone(
-            arch=config.critic_arch,          # 复用 critic-arch 参数
-            input_dim=obs_dim,
-            hidden_dims=config.hidden_dims,
-            output_dim=config.latent_dim,
-            activation_name=config.activation,
-            tt_rank=config.tt_rank,
-            tt_order=config.tt_order,
-        )
+        activation = _activation_from_name(config.activation)
+        if config.critic_arch == "tt":
+            # Keep the first projection dense, then compress deeper layers with TT.
+            self.backbone = MixedTTBackbone(
+                input_dim=obs_dim,
+                hidden_dims=config.hidden_dims,
+                output_dim=config.latent_dim,
+                activation=activation,
+                tt_rank=config.tt_rank,
+                tt_order=config.tt_order,
+            )
+        else:
+            self.backbone = build_backbone(
+                arch=config.critic_arch,
+                input_dim=obs_dim,
+                hidden_dims=config.hidden_dims,
+                output_dim=config.latent_dim,
+                activation_name=config.activation,
+                tt_rank=config.tt_rank,
+                tt_order=config.tt_order,
+            )
         self.q_head = nn.Linear(config.latent_dim, action_dim)
 
     def forward(self, observations: torch.Tensor) -> torch.Tensor:

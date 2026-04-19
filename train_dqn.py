@@ -16,18 +16,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--critic-arch",
         choices=("mlp", "tt", "hybrid"),
-        default="mlp",
+        default="tt",
         dest="q_arch",
     )
-    parser.add_argument("--hidden-dims", default="64,64")
+    parser.add_argument("--hidden-dims", default="128,128")
     parser.add_argument("--latent-dim", type=int, default=64)
     parser.add_argument("--activation", choices=("tanh", "relu", "gelu"), default="relu")
     parser.add_argument("--tt-rank", type=int, default=4)
     parser.add_argument("--tt-order", type=int, default=3)
 
-    parser.add_argument("--total-timesteps", type=int, default=50000)
-    parser.add_argument("--buffer-size", type=int, default=10000)
-    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--total-timesteps", type=int, default=100000)
+    parser.add_argument("--buffer-size", type=int, default=50000)
+    parser.add_argument("--batch-size", type=int, default=128)
     parser.add_argument("--learning-starts", type=int, default=5000)
     parser.add_argument("--epsilon-start", type=float, default=1.0)
     parser.add_argument("--epsilon-end", type=float, default=0.05)
@@ -35,9 +35,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-freq", type=int, default=4)
     parser.add_argument("--gradient-steps", type=int, default=1)
 
-    parser.add_argument("--learning-rate", type=float, default=3e-4)
+    parser.add_argument("--learning-rate", type=float, default=1e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
-    parser.add_argument("--target-update-freq", type=int, default=500)
+    parser.add_argument("--target-update-freq", type=int, default=1000)
 
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--output-json", default="cartpole_dqn_result.json")

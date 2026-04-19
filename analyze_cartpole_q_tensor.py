@@ -36,7 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--critic-arch", choices=("mlp", "tt", "hybrid"), default="mlp")
     parser.add_argument("--hidden-dims", default="64,64")
     parser.add_argument("--latent-dim", type=int, default=64)
-    parser.add_argument("--activation", choices=("tanh", "relu", "gelu"), default="tanh")
+    parser.add_argument("--activation", choices=("tanh", "relu", "gelu"), default="relu")
     parser.add_argument("--tt-rank", type=int, default=4)
     parser.add_argument("--tt-order", type=int, default=3)
     parser.add_argument("--total-timesteps", type=int, default=4096)

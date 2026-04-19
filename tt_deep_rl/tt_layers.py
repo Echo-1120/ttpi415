@@ -200,3 +200,67 @@ class TTMLP(nn.Module):
             "module_params": float(_parameter_count(self)),
         }
 
+
+class MixedTTMLP(nn.Module):
+    """MLP with a dense first layer and TT parameterization afterwards.
+
+    This is useful when we want to avoid over-compressing the first representation
+    layer while still benefiting from TT structure deeper in the network.
+    """
+
+    def __init__(
+        self,
+        input_dim: int,
+        hidden_dims: tuple[int, ...],
+        output_dim: int,
+        tt_rank: int = 4,
+        tt_order: int = 3,
+        activation: type[nn.Module] = nn.Tanh,
+    ) -> None:
+        super().__init__()
+        dims = (input_dim,) + hidden_dims + (output_dim,)
+        layers: list[nn.Module] = []
+
+        for layer_index, (in_dim, out_dim) in enumerate(zip(dims[:-1], dims[1:])):
+            if layer_index == 0:
+                layers.append(nn.Linear(in_dim, out_dim))
+            else:
+                layers.append(
+                    TTLinear(
+                        in_features=in_dim,
+                        out_features=out_dim,
+                        tt_rank=tt_rank,
+                        tt_order=tt_order,
+                    )
+                )
+            if out_dim != output_dim:
+                layers.append(activation())
+
+        self.net = nn.Sequential(*layers)
+
+    def forward(self, inputs: torch.Tensor) -> torch.Tensor:
+        return self.net(inputs)
+
+    def compression_stats(self) -> dict[str, float]:
+        dense_params = 0
+        tt_params = 0
+        first_dense_params = 0
+
+        for module in self.modules():
+            if isinstance(module, TTLinear):
+                stats = module.compression_stats()
+                dense_params += int(stats["dense_params"])
+                tt_params += int(stats["tt_params"])
+            elif isinstance(module, nn.Linear):
+                first_dense_params += module.weight.numel()
+                if module.bias is not None:
+                    first_dense_params += module.bias.numel()
+
+        ratio = dense_params / max(1, tt_params)
+        return {
+            "dense_params": float(dense_params),
+            "tt_params": float(tt_params),
+            "compression_ratio": float(ratio),
+            "first_dense_params": float(first_dense_params),
+            "module_params": float(_parameter_count(self)),
+        }
