@@ -1,0 +1,12 @@
+{
+  "env_id": "CartPole-v1",
+  "seed": 7,
+  "num_steps": 50000,
+  "policy": "random",
+  "checkpoint": "",
+  "epsilon": null,
+  "episodes_finished": 2229,
+  "mean_episode_return": 22.430686406460296,
+  "last_episode_return": 18.0,
+  "output_file": "stage1_random_rollouts.npz"
+}

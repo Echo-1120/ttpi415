@@ -39,7 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--activation", choices=("tanh", "relu", "gelu"), default="relu")
     parser.add_argument("--tt-rank", type=int, default=4)
     parser.add_argument("--tt-order", type=int, default=3)
-    parser.add_argument("--total-timesteps", type=int, default=4096)
+    parser.add_argument("--total-timesteps", type=int, default=50000)
     parser.add_argument("--rollout-steps", type=int, default=256)
     parser.add_argument("--update-epochs", type=int, default=4)
     parser.add_argument("--minibatch-size", type=int, default=64)
@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-grad-norm", type=float, default=0.5)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--target-mode", choices=("td_bootstrap", "returns"), default="td_bootstrap")
+    parser.add_argument("--v-target-mode", choices=("values", "returns"), default="values")
     parser.add_argument("--state-bins", default=_format_int_tuple(DEFAULT_CARTPOLE_STATE_BINS))
     parser.add_argument("--action-bins", type=int, default=DEFAULT_ACTION_BINS)
     parser.add_argument("--obs-low", default=_format_float_tuple(DEFAULT_CARTPOLE_OBS_LOW))
@@ -135,9 +136,24 @@ def build_analysis_for_builder(
     v_tensor = builder.empirical_v_tensor()
     a_tensor = builder.empirical_a_tensor()
 
-    q_analysis = analyze_tt_rank_sweep(q_tensor, tt_ranks=tt_ranks, observed_mask=builder.q_observed_mask())
-    v_analysis = analyze_tt_rank_sweep(v_tensor, tt_ranks=tt_ranks, observed_mask=builder.v_observed_mask())
-    a_analysis = analyze_tt_rank_sweep(a_tensor, tt_ranks=tt_ranks, observed_mask=builder.a_observed_mask())
+    q_analysis = analyze_tt_rank_sweep(
+        q_tensor,
+        tt_ranks=tt_ranks,
+        observed_mask=builder.q_observed_mask(),
+        observed_counts=builder.q_counts(),
+    )
+    v_analysis = analyze_tt_rank_sweep(
+        v_tensor,
+        tt_ranks=tt_ranks,
+        observed_mask=builder.v_observed_mask(),
+        observed_counts=builder.v_counts(),
+    )
+    a_analysis = analyze_tt_rank_sweep(
+        a_tensor,
+        tt_ranks=tt_ranks,
+        observed_mask=builder.a_observed_mask(),
+        observed_counts=builder.a_counts(),
+    )
 
     return {
         "q_tensor": builder.q_summary(),
@@ -290,11 +306,12 @@ def main() -> None:
         spec=discretization_spec,
         gamma=ppo_config.gamma,
         target_mode=args.target_mode,
+        v_target_mode=args.v_target_mode,
     )
     stage_builders = {
-        "early": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode),
-        "middle": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode),
-        "late": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode),
+        "early": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode, args.v_target_mode),
+        "middle": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode, args.v_target_mode),
+        "late": EmpiricalQTensorBuilder(discretization_spec, ppo_config.gamma, args.target_mode, args.v_target_mode),
     }
     total_updates = compute_total_updates(ppo_config.total_timesteps, ppo_config.rollout_steps)
     rollout_index = 0

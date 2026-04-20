@@ -55,6 +55,7 @@ def summarize_count_tensor(
     counts: torch.Tensor,
     target_mode: str,
     gamma: float,
+    source: str,
 ) -> dict[str, Any]:
     observed_mask = counts > 0
     total_bins = int(counts.numel())
@@ -64,6 +65,7 @@ def summarize_count_tensor(
     return {
         "target_mode": target_mode,
         "gamma": float(gamma),
+        "source": source,
         "tensor_shape": list(counts.shape),
         "total_bins": total_bins,
         "visited_bins": visited_bins,
@@ -91,7 +93,7 @@ def main() -> None:
     dones = np.asarray(rollout_data["dones"], dtype=np.float32)
 
     if args.target_mode == "returns":
-        targets = torch.as_tensor(
+        q_targets = torch.as_tensor(
             compute_discounted_returns(rewards, dones, gamma=args.gamma),
             dtype=torch.float64,
         )
@@ -104,10 +106,23 @@ def main() -> None:
                 "td_bootstrap mode requires finite next_state_values. "
                 "Use a DQN-based rollout export or switch to target-mode=returns."
             )
-        targets = torch.as_tensor(
+        q_targets = torch.as_tensor(
             rewards + args.gamma * next_state_values * (1.0 - dones),
             dtype=torch.float64,
         )
+
+    state_values = np.asarray(
+        rollout_data["state_values"],
+        dtype=np.float32,
+    ) if "state_values" in rollout_data.files else np.full_like(rewards, np.nan, dtype=np.float32)
+    if np.isfinite(state_values).all():
+        v_targets = torch.as_tensor(state_values, dtype=torch.float64)
+        advantage_source = "q_minus_state_value"
+        a_targets = q_targets - v_targets
+    else:
+        v_targets = q_targets.clone()
+        advantage_source = "q_minus_state_average"
+        a_targets = None
 
     discretizer = build_cartpole_discretizer(
         state_bins=parse_int_tuple(args.state_bins),
@@ -119,21 +134,29 @@ def main() -> None:
     state_indices = discretizer.discretize_observations(observations)
     state_flat = discretizer.flatten_state_indices(state_indices)
     state_action_flat = discretizer.flatten_state_action_indices(state_indices, actions)
-    ones = torch.ones_like(targets)
+    ones = torch.ones_like(q_targets)
 
     q_value_sums = torch.zeros(discretizer.state_action_shape, dtype=torch.float64)
     q_counts = torch.zeros(discretizer.state_action_shape, dtype=torch.float64)
     v_value_sums = torch.zeros(discretizer.state_shape, dtype=torch.float64)
     v_counts = torch.zeros(discretizer.state_shape, dtype=torch.float64)
+    a_value_sums = torch.zeros(discretizer.state_action_shape, dtype=torch.float64)
+    a_counts = torch.zeros(discretizer.state_action_shape, dtype=torch.float64)
 
-    q_value_sums.view(-1).index_add_(0, state_action_flat, targets)
+    q_value_sums.view(-1).index_add_(0, state_action_flat, q_targets)
     q_counts.view(-1).index_add_(0, state_action_flat, ones)
-    v_value_sums.view(-1).index_add_(0, state_flat, targets)
+    v_value_sums.view(-1).index_add_(0, state_flat, v_targets)
     v_counts.view(-1).index_add_(0, state_flat, ones)
 
     q_tensor = average_observed_values(q_value_sums, q_counts)
     v_tensor = average_observed_values(v_value_sums, v_counts)
-    a_tensor = q_tensor - v_tensor.unsqueeze(-1)
+    if a_targets is None:
+        a_tensor = q_tensor - v_tensor.unsqueeze(-1)
+        a_counts.copy_(q_counts)
+    else:
+        a_value_sums.view(-1).index_add_(0, state_action_flat, a_targets)
+        a_counts.view(-1).index_add_(0, state_action_flat, ones)
+        a_tensor = average_observed_values(a_value_sums, a_counts)
 
     output_path = Path(args.output_file)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -144,7 +167,10 @@ def main() -> None:
         a_tensor=a_tensor.cpu().numpy(),
         q_observed_mask=(q_counts > 0).cpu().numpy(),
         v_observed_mask=(v_counts > 0).cpu().numpy(),
-        a_observed_mask=(q_counts > 0).cpu().numpy(),
+        a_observed_mask=(a_counts > 0).cpu().numpy(),
+        q_counts=q_counts.cpu().numpy(),
+        v_counts=v_counts.cpu().numpy(),
+        a_counts=a_counts.cpu().numpy(),
     )
 
     summary = {
@@ -158,11 +184,15 @@ def main() -> None:
             "obs_high": list(discretizer.obs_high),
             "action_bins": discretizer.action_bins,
         },
-        "q_tensor": summarize_count_tensor(q_counts, args.target_mode, args.gamma),
-        "v_tensor": summarize_count_tensor(v_counts, args.target_mode, args.gamma),
+        "q_tensor": summarize_count_tensor(q_counts, args.target_mode, args.gamma, source="action_value_target"),
+        "v_tensor": summarize_count_tensor(
+            v_counts,
+            args.target_mode,
+            args.gamma,
+            source="state_value_prediction" if np.isfinite(state_values).all() else "state_value_fallback_from_q",
+        ),
         "a_tensor": {
-            **summarize_count_tensor(q_counts, args.target_mode, args.gamma),
-            "derived_from": "Q(s,a) - V(s)",
+            **summarize_count_tensor(a_counts, args.target_mode, args.gamma, source=advantage_source),
         },
     }
 

@@ -104,11 +104,20 @@ def main() -> None:
     for tensor_name in ("q", "v", "a"):
         tensor_key = f"{tensor_name}_tensor"
         mask_key = f"{tensor_name}_observed_mask"
+        counts_key = f"{tensor_name}_counts"
         if tensor_key not in tensor_file.files or mask_key not in tensor_file.files:
             continue
         tensor = torch.as_tensor(tensor_file[tensor_key], dtype=torch.float64)
         mask = torch.as_tensor(tensor_file[mask_key], dtype=torch.bool)
-        analyses[tensor_name] = analyze_tt_rank_sweep(tensor, tt_ranks=tt_ranks, observed_mask=mask)
+        counts = None
+        if counts_key in tensor_file.files:
+            counts = torch.as_tensor(tensor_file[counts_key], dtype=torch.float64)
+        analyses[tensor_name] = analyze_tt_rank_sweep(
+            tensor,
+            tt_ranks=tt_ranks,
+            observed_mask=mask,
+            observed_counts=counts,
+        )
 
     if not analyses:
         raise ValueError(f"No tensor/mask pairs found in {args.tensor_file}")

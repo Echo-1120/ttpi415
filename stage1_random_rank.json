@@ -1,0 +1,388 @@
+{
+  "tensor_file": "./stage1_random_vqa.npz",
+  "tt_ranks": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "analyses": {
+    "q": {
+      "dense_parameter_count": 8192,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.653816944714383,
+          "max_error": 25.47764344574241,
+          "observed_relative_frobenius_error": 0.5519279175841825,
+          "observed_max_error": 25.47764344574241,
+          "observed_weighted_rmse": 3.5172997740313474,
+          "observed_weighted_relative_error": 0.2404625538117856,
+          "parameter_count": 34,
+          "compression_ratio": 240.94117647058823,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.4440303302307067,
+          "max_error": 14.328404433132894,
+          "observed_relative_frobenius_error": 0.3408906540171187,
+          "observed_max_error": 14.328404433132894,
+          "observed_weighted_rmse": 2.469404890150794,
+          "observed_weighted_relative_error": 0.1688225185311372,
+          "parameter_count": 116,
+          "compression_ratio": 70.62068965517241,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.31578443799844946,
+          "max_error": 12.374840684204012,
+          "observed_relative_frobenius_error": 0.240065154788561,
+          "observed_max_error": 9.29760187672057,
+          "observed_weighted_rmse": 1.999950560335687,
+          "observed_weighted_relative_error": 0.1367279589832723,
+          "parameter_count": 356,
+          "compression_ratio": 23.01123595505618,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.1483746976805567,
+          "max_error": 5.849086013664277,
+          "observed_relative_frobenius_error": 0.11475619382893645,
+          "observed_max_error": 5.849086013664277,
+          "observed_weighted_rmse": 1.1731790002016709,
+          "observed_weighted_relative_error": 0.08020516776809053,
+          "parameter_count": 1220,
+          "compression_ratio": 6.714754098360656,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 5.042667985361492e-15,
+          "max_error": 1.3836614976534263e-13,
+          "observed_relative_frobenius_error": 3.945890464434121e-15,
+          "observed_max_error": 1.3811174426336947e-13,
+          "observed_weighted_rmse": 5.864037253698638e-14,
+          "observed_weighted_relative_error": 4.008988327019001e-15,
+          "parameter_count": 3396,
+          "compression_ratio": 2.4122497055359244,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            16,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 5.116461623286802e-15,
+          "max_error": 1.3922196728799463e-13,
+          "observed_relative_frobenius_error": 3.9957809808325924e-15,
+          "observed_max_error": 1.3922196728799463e-13,
+          "observed_weighted_rmse": 6.028517975178845e-14,
+          "observed_weighted_relative_error": 4.1214366734236745e-15,
+          "parameter_count": 6468,
+          "compression_ratio": 1.2665429808286952,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            16,
+            2,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 16,
+        "score": 0.19999999999999996,
+        "metric_key": "observed_relative_frobenius_error"
+      }
+    },
+    "v": {
+      "dense_parameter_count": 4096,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.6452590390285533,
+          "max_error": 18.749593269999345,
+          "observed_relative_frobenius_error": 0.5374017219744253,
+          "observed_max_error": 18.749593269999345,
+          "observed_weighted_rmse": 3.0408155606578635,
+          "observed_weighted_relative_error": 0.20965897408936895,
+          "parameter_count": 32,
+          "compression_ratio": 128.0,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.41835043391991084,
+          "max_error": 13.413592049232792,
+          "observed_relative_frobenius_error": 0.31587220181086867,
+          "observed_max_error": 13.413592049232792,
+          "observed_weighted_rmse": 2.250178722571911,
+          "observed_weighted_relative_error": 0.1551459314388962,
+          "parameter_count": 96,
+          "compression_ratio": 42.666666666666664,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.2676159340895396,
+          "max_error": 8.389455291487597,
+          "observed_relative_frobenius_error": 0.20137595405529124,
+          "observed_max_error": 8.35963487072238,
+          "observed_weighted_rmse": 1.8498328351306041,
+          "observed_weighted_relative_error": 0.12754277486215096,
+          "parameter_count": 320,
+          "compression_ratio": 12.8,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.10490690772755629,
+          "max_error": 5.010680374060541,
+          "observed_relative_frobenius_error": 0.07885791934865033,
+          "observed_max_error": 5.010680374060541,
+          "observed_weighted_rmse": 0.648423013099841,
+          "observed_weighted_relative_error": 0.044707645363745295,
+          "parameter_count": 1152,
+          "compression_ratio": 3.5555555555555554,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 1.1331293290903983e-15,
+          "max_error": 4.263256414560601e-14,
+          "observed_relative_frobenius_error": 7.880804221611989e-16,
+          "observed_max_error": 4.263256414560601e-14,
+          "observed_weighted_rmse": 7.997584566555865e-15,
+          "observed_weighted_relative_error": 5.514196247582718e-16,
+          "parameter_count": 2176,
+          "compression_ratio": 1.8823529411764706,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            8,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 1.1595812337468907e-15,
+          "max_error": 4.440892098500626e-14,
+          "observed_relative_frobenius_error": 7.964276723863201e-16,
+          "observed_max_error": 4.440892098500626e-14,
+          "observed_weighted_rmse": 8.004050285021996e-15,
+          "observed_weighted_relative_error": 5.518654248646309e-16,
+          "parameter_count": 4224,
+          "compression_ratio": 0.9696969696969697,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            8,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 16,
+        "score": 0.19999999999999996,
+        "metric_key": "observed_relative_frobenius_error"
+      }
+    },
+    "a": {
+      "dense_parameter_count": 8192,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.8831572454264928,
+          "max_error": 18.95160028836477,
+          "observed_relative_frobenius_error": 1.005797473672819,
+          "observed_max_error": 7.281902539079107,
+          "observed_weighted_rmse": 1.8929766863408652,
+          "observed_weighted_relative_error": 0.9976167798029051,
+          "parameter_count": 34,
+          "compression_ratio": 240.94117647058823,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.7500796302873677,
+          "max_error": 13.083624220402681,
+          "observed_relative_frobenius_error": 0.845579853357495,
+          "observed_max_error": 6.95078957949403,
+          "observed_weighted_rmse": 1.6502212618199368,
+          "observed_weighted_relative_error": 0.8696823542826493,
+          "parameter_count": 116,
+          "compression_ratio": 70.62068965517241,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.4956440666917243,
+          "max_error": 10.058540563435052,
+          "observed_relative_frobenius_error": 0.6108028651811938,
+          "observed_max_error": 4.738710367991961,
+          "observed_weighted_rmse": 0.8514386377829162,
+          "observed_weighted_relative_error": 0.44871628803135355,
+          "parameter_count": 356,
+          "compression_ratio": 23.01123595505618,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.23065709964739436,
+          "max_error": 5.852184577817209,
+          "observed_relative_frobenius_error": 0.28494537464079495,
+          "observed_max_error": 1.9998465786346031,
+          "observed_weighted_rmse": 0.5726451675834952,
+          "observed_weighted_relative_error": 0.3017894685003383,
+          "parameter_count": 1220,
+          "compression_ratio": 6.714754098360656,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 2.8254155111898784e-15,
+          "max_error": 5.684341886080802e-14,
+          "observed_relative_frobenius_error": 3.3359367476523043e-15,
+          "observed_max_error": 4.263256414560601e-14,
+          "observed_weighted_rmse": 3.8345137810305704e-15,
+          "observed_weighted_relative_error": 2.0208253582541745e-15,
+          "parameter_count": 3396,
+          "compression_ratio": 2.4122497055359244,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            16,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 2.8355915536203534e-15,
+          "max_error": 5.684341886080802e-14,
+          "observed_relative_frobenius_error": 3.3359367476523043e-15,
+          "observed_max_error": 4.263256414560601e-14,
+          "observed_weighted_rmse": 3.8345137810305704e-15,
+          "observed_weighted_relative_error": 2.0208253582541745e-15,
+          "parameter_count": 6468,
+          "compression_ratio": 1.2665429808286952,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            16,
+            2,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 16,
+        "score": 0.19999999999999996,
+        "metric_key": "observed_relative_frobenius_error"
+      }
+    }
+  },
+  "figures": {
+    "q_error_vs_rank": "stage1_random_figures/q_error_vs_rank.svg",
+    "v_error_vs_rank": "stage1_random_figures/v_error_vs_rank.svg",
+    "a_error_vs_rank": "stage1_random_figures/a_error_vs_rank.svg",
+    "v_q_a_comparison": "stage1_random_figures/v_q_a_comparison.svg"
+  }
+}

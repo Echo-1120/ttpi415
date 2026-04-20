@@ -22,7 +22,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--env-id", default="CartPole-v1")
     parser.add_argument("--seed", type=int, default=7)
-    parser.add_argument("--num-steps", type=int, default=10000)
+    parser.add_argument("--num-steps", type=int, default=50000)
     parser.add_argument(
         "--policy",
         choices=("random", "dqn_greedy", "dqn_epsilon_greedy"),

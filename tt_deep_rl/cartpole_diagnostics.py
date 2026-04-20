@@ -9,7 +9,7 @@ import torch
 from tt_deep_rl.ppo import RolloutBuffer
 
 
-DEFAULT_CARTPOLE_STATE_BINS = (16, 16, 16, 16)
+DEFAULT_CARTPOLE_STATE_BINS = (8, 8, 8, 8)
 DEFAULT_CARTPOLE_OBS_LOW = (-4.8, -3.0, -0.41887903, -3.5)
 DEFAULT_CARTPOLE_OBS_HIGH = (4.8, 3.0, 0.41887903, 3.5)
 DEFAULT_ACTION_BINS = 2
@@ -95,6 +95,7 @@ def _summarize_count_tensor(
     counts: torch.Tensor,
     target_mode: str,
     gamma: float,
+    source: str,
 ) -> dict[str, Any]:
     observed_mask = counts > 0
     total_bins = int(counts.numel())
@@ -114,6 +115,7 @@ def _summarize_count_tensor(
     return {
         "target_mode": target_mode,
         "gamma": float(gamma),
+        "source": source,
         "tensor_shape": list(counts.shape),
         "total_bins": total_bins,
         "visited_bins": visited_bins,
@@ -131,17 +133,23 @@ class EmpiricalQTensorBuilder:
         spec: DiscretizationSpec,
         gamma: float,
         target_mode: str = "td_bootstrap",
+        v_target_mode: str = "values",
     ) -> None:
         if target_mode not in {"td_bootstrap", "returns"}:
             raise ValueError("target_mode must be one of {'td_bootstrap', 'returns'}.")
+        if v_target_mode not in {"values", "returns"}:
+            raise ValueError("v_target_mode must be one of {'values', 'returns'}.")
 
         self.spec = spec
         self.gamma = gamma
         self.target_mode = target_mode
+        self.v_target_mode = v_target_mode
         self.state_action_value_sums = torch.zeros(spec.state_action_shape, dtype=torch.float64)
         self.state_action_counts = torch.zeros(spec.state_action_shape, dtype=torch.float64)
         self.state_value_sums = torch.zeros(spec.state_shape, dtype=torch.float64)
-        self.state_counts = torch.zeros(spec.state_shape, dtype=torch.float64)
+        self.state_value_counts = torch.zeros(spec.state_shape, dtype=torch.float64)
+        self.state_action_advantage_sums = torch.zeros(spec.state_action_shape, dtype=torch.float64)
+        self.state_action_advantage_counts = torch.zeros(spec.state_action_shape, dtype=torch.float64)
 
     def add_rollout(self, buffer: RolloutBuffer, last_value: torch.Tensor) -> None:
         rollout_length = buffer.position
@@ -158,46 +166,71 @@ class EmpiricalQTensorBuilder:
         action_indices = torch.clamp(action_indices, min=0, max=self.spec.action_bins - 1)
         state_action_flat = self.spec.flatten_state_action_indices(state_indices, action_indices)
 
-        targets = self._build_targets(buffer, rollout_length, last_value).to(dtype=torch.float64)
-        ones = torch.ones_like(targets)
+        q_targets = self._build_q_targets(buffer, rollout_length, last_value).to(dtype=torch.float64)
+        v_targets = self._build_v_targets(buffer, rollout_length).to(dtype=torch.float64)
+        a_targets = self._build_advantage_targets(buffer, rollout_length, q_targets, v_targets).to(dtype=torch.float64)
+        ones = torch.ones_like(q_targets)
 
-        self.state_action_value_sums.view(-1).index_add_(0, state_action_flat, targets)
+        self.state_action_value_sums.view(-1).index_add_(0, state_action_flat, q_targets)
         self.state_action_counts.view(-1).index_add_(0, state_action_flat, ones)
-        self.state_value_sums.view(-1).index_add_(0, state_flat, targets)
-        self.state_counts.view(-1).index_add_(0, state_flat, ones)
+        self.state_value_sums.view(-1).index_add_(0, state_flat, v_targets)
+        self.state_value_counts.view(-1).index_add_(0, state_flat, ones)
+        self.state_action_advantage_sums.view(-1).index_add_(0, state_action_flat, a_targets)
+        self.state_action_advantage_counts.view(-1).index_add_(0, state_action_flat, ones)
 
     def empirical_q_tensor(self) -> torch.Tensor:
         return _average_observed_values(self.state_action_value_sums, self.state_action_counts)
 
     def empirical_v_tensor(self) -> torch.Tensor:
-        return _average_observed_values(self.state_value_sums, self.state_counts)
+        return _average_observed_values(self.state_value_sums, self.state_value_counts)
 
     def empirical_a_tensor(self) -> torch.Tensor:
-        advantage = self.empirical_q_tensor()
-        advantage -= self.empirical_v_tensor().unsqueeze(-1)
-        return advantage
+        return _average_observed_values(self.state_action_advantage_sums, self.state_action_advantage_counts)
 
     def q_observed_mask(self) -> torch.Tensor:
         return self.state_action_counts > 0
 
+    def q_counts(self) -> torch.Tensor:
+        return self.state_action_counts
+
     def v_observed_mask(self) -> torch.Tensor:
-        return self.state_counts > 0
+        return self.state_value_counts > 0
+
+    def v_counts(self) -> torch.Tensor:
+        return self.state_value_counts
 
     def a_observed_mask(self) -> torch.Tensor:
-        return self.q_observed_mask()
+        return self.state_action_advantage_counts > 0
+
+    def a_counts(self) -> torch.Tensor:
+        return self.state_action_advantage_counts
 
     def q_summary(self) -> dict[str, Any]:
-        return _summarize_count_tensor(self.state_action_counts, self.target_mode, self.gamma)
+        return _summarize_count_tensor(
+            self.state_action_counts,
+            self.target_mode,
+            self.gamma,
+            source="action_value_target",
+        )
 
     def v_summary(self) -> dict[str, Any]:
-        return _summarize_count_tensor(self.state_counts, self.target_mode, self.gamma)
+        return _summarize_count_tensor(
+            self.state_value_counts,
+            self.v_target_mode,
+            self.gamma,
+            source="critic_value_prediction" if self.v_target_mode == "values" else "return_target",
+        )
 
     def a_summary(self) -> dict[str, Any]:
-        summary = _summarize_count_tensor(self.state_action_counts, self.target_mode, self.gamma)
-        summary["derived_from"] = "Q(s,a) - V(s)"
+        summary = _summarize_count_tensor(
+            self.state_action_advantage_counts,
+            "advantages",
+            self.gamma,
+            source="gae_advantage",
+        )
         return summary
 
-    def _build_targets(
+    def _build_q_targets(
         self,
         buffer: RolloutBuffer,
         rollout_length: int,
@@ -213,6 +246,31 @@ class EmpiricalQTensorBuilder:
             next_values[:-1] = buffer.values[1:rollout_length]
         next_values[-1] = last_value.squeeze().float()
         return rewards + self.gamma * next_values * (1.0 - dones)
+
+    def _build_v_targets(
+        self,
+        buffer: RolloutBuffer,
+        rollout_length: int,
+    ) -> torch.Tensor:
+        if self.v_target_mode == "returns":
+            v_targets = buffer.returns[:rollout_length]
+        else:
+            v_targets = buffer.values[:rollout_length]
+        if not torch.isfinite(v_targets).all():
+            raise ValueError("V targets must be finite before empirical tensor aggregation.")
+        return v_targets.clone()
+
+    def _build_advantage_targets(
+        self,
+        buffer: RolloutBuffer,
+        rollout_length: int,
+        q_targets: torch.Tensor,
+        v_targets: torch.Tensor,
+    ) -> torch.Tensor:
+        advantages = buffer.advantages[:rollout_length]
+        if not torch.isfinite(advantages).all():
+            raise ValueError("Advantage targets must be finite before empirical tensor aggregation.")
+        return advantages.clone()
 
 
 def _average_observed_values(value_sums: torch.Tensor, counts: torch.Tensor) -> torch.Tensor:
@@ -272,6 +330,7 @@ def compute_error_metrics(
     reference: torch.Tensor,
     approximation: torch.Tensor,
     observed_mask: torch.Tensor | None = None,
+    observed_counts: torch.Tensor | None = None,
 ) -> dict[str, float]:
     difference = approximation - reference
     reference_norm = float(torch.linalg.vector_norm(reference).item())
@@ -284,6 +343,9 @@ def compute_error_metrics(
         "max_error": float(difference.abs().max().item()),
     }
 
+    if observed_counts is not None:
+        observed_mask = observed_counts > 0
+
     if observed_mask is not None and bool(observed_mask.any().item()):
         observed_reference = reference[observed_mask]
         observed_difference = difference[observed_mask]
@@ -293,6 +355,22 @@ def compute_error_metrics(
             observed_relative_error = float(torch.linalg.vector_norm(observed_difference).item() / observed_norm)
         metrics["observed_relative_frobenius_error"] = observed_relative_error
         metrics["observed_max_error"] = float(observed_difference.abs().max().item())
+
+        if observed_counts is not None:
+            weights = observed_counts[observed_mask].to(dtype=torch.float64)
+            weight_sum = float(weights.sum().item())
+            if weight_sum > 0.0:
+                weighted_squared_error = weights * observed_difference.square()
+                weighted_squared_reference = weights * observed_reference.square()
+                observed_weighted_rmse = float(torch.sqrt(weighted_squared_error.sum() / weights.sum()).item())
+                observed_weighted_relative_error = 0.0
+                weighted_reference_sum = float(weighted_squared_reference.sum().item())
+                if weighted_reference_sum > 0.0:
+                    observed_weighted_relative_error = float(
+                        torch.sqrt(weighted_squared_error.sum() / weighted_squared_reference.sum()).item()
+                    )
+                metrics["observed_weighted_rmse"] = observed_weighted_rmse
+                metrics["observed_weighted_relative_error"] = observed_weighted_relative_error
 
     return metrics
 
@@ -335,6 +413,7 @@ def analyze_tt_rank_sweep(
     tensor: torch.Tensor,
     tt_ranks: Sequence[int],
     observed_mask: torch.Tensor | None = None,
+    observed_counts: torch.Tensor | None = None,
 ) -> dict[str, Any]:
     reference = tensor.to(dtype=torch.float64)
     dense_parameter_count = int(reference.numel())
@@ -343,7 +422,12 @@ def analyze_tt_rank_sweep(
     for tt_rank in tt_ranks:
         decomposition = tt_svd(reference, max_rank=int(tt_rank))
         approximation = reconstruct_tt(decomposition)
-        metrics = compute_error_metrics(reference, approximation, observed_mask=observed_mask)
+        metrics = compute_error_metrics(
+            reference,
+            approximation,
+            observed_mask=observed_mask,
+            observed_counts=observed_counts,
+        )
         rank_results.append(
             {
                 "tt_rank": int(tt_rank),
@@ -354,6 +438,8 @@ def analyze_tt_rank_sweep(
                     metrics["relative_frobenius_error"],
                 ),
                 "observed_max_error": metrics.get("observed_max_error", metrics["max_error"]),
+                "observed_weighted_rmse": metrics.get("observed_weighted_rmse", 0.0),
+                "observed_weighted_relative_error": metrics.get("observed_weighted_relative_error", 0.0),
                 "parameter_count": int(decomposition.parameter_count),
                 "compression_ratio": float(dense_parameter_count / max(1, decomposition.parameter_count)),
                 "tt_ranks": list(decomposition.ranks),
