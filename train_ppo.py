@@ -11,6 +11,10 @@ from tt_deep_rl.networks import ModelConfig
 from tt_deep_rl.ppo import PPOConfig, PPOTrainer, save_summary
 
 
+def default_device() -> str:
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Train PPO with MLP / TT / hybrid backbones.")
     parser.add_argument("--env-id", default="CartPole-v1")
@@ -33,7 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ent-coef", type=float, default=0.01)
     parser.add_argument("--vf-coef", type=float, default=0.5)
     parser.add_argument("--max-grad-norm", type=float, default=0.5)
-    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--device", default=default_device())
     parser.add_argument("--output-json", default="")
     parser.add_argument("--checkpoint-out", default="")
     return parser.parse_args()

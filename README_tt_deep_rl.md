@@ -91,6 +91,38 @@ python ./train_ppo.py \
   --rollout-steps 128
 ```
 
+## CartPole PPO critic-only sweep
+
+For the current closed-loop CartPole study, keep the actor fixed as `MLP` and only vary the critic:
+
+- `MLP actor + MLP critic`
+- `MLP actor + TT critic`, `rank in {4, 8, 16}`
+- `MLP actor + Hybrid critic`, `rank in {4, 8, 16}`
+
+The helper below runs the recommended multi-seed matrix and writes both per-run outputs and aggregate summaries:
+
+```bash
+python ./run_cartpole_ppo_critic_sweep.py \
+  --env-id CartPole-v1 \
+  --seeds 7,11,17,23,29 \
+  --timesteps 50000,100000 \
+  --tt-ranks 4,8,16 \
+  --output-dir ./cartpole_ppo_critic_sweep
+```
+
+Useful options:
+
+- `--skip-existing` resumes an interrupted sweep without rerunning finished jobs
+- `--dry-run` prints the full run matrix before launching training
+
+Key outputs:
+
+- `manifest.json`: experiment definition
+- `runs/*_train.json`: one PPO training summary per seed/config
+- `checkpoints/*.pt`: final PPO checkpoints
+- `summary.json`: all runs plus aggregated mean/std across seeds
+- `summary.csv`: aggregate table for quick plotting or spreadsheet review
+
 ## CartPole Q tensor diagnostics
 
 To diagnose whether CartPole admits an obvious low-rank TT structure, you can:
