@@ -1,0 +1,388 @@
+{
+  "tensor_file": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_vqa_td.npz",
+  "tt_ranks": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "analyses": {
+    "q": {
+      "dense_parameter_count": 8192,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.48298873921505714,
+          "max_error": 47.321160497383325,
+          "observed_relative_frobenius_error": 0.3769198103245825,
+          "observed_max_error": 46.941678068149955,
+          "observed_weighted_rmse": 19.564030061452282,
+          "observed_weighted_relative_error": 0.3555451678967816,
+          "parameter_count": 34,
+          "compression_ratio": 240.94117647058823,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.2391025930292776,
+          "max_error": 47.89597012659187,
+          "observed_relative_frobenius_error": 0.20149470603605965,
+          "observed_max_error": 47.89597012659187,
+          "observed_weighted_rmse": 9.312002320401243,
+          "observed_weighted_relative_error": 0.16923084957765128,
+          "parameter_count": 116,
+          "compression_ratio": 70.62068965517241,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.09283085016061658,
+          "max_error": 23.767915176997782,
+          "observed_relative_frobenius_error": 0.05747372670491458,
+          "observed_max_error": 14.635216521140975,
+          "observed_weighted_rmse": 2.56911815297536,
+          "observed_weighted_relative_error": 0.04668964125372475,
+          "parameter_count": 356,
+          "compression_ratio": 23.01123595505618,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.001032718193281979,
+          "max_error": 0.16102269481336862,
+          "observed_relative_frobenius_error": 0.0009928786262123023,
+          "observed_max_error": 0.16102269481336862,
+          "observed_weighted_rmse": 0.02996241681119645,
+          "observed_weighted_relative_error": 0.0005445193287000804,
+          "parameter_count": 1220,
+          "compression_ratio": 6.714754098360656,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 1.1405285336471729e-15,
+          "max_error": 1.2621201482323735e-13,
+          "observed_relative_frobenius_error": 7.519044737140792e-16,
+          "observed_max_error": 9.947598300641403e-14,
+          "observed_weighted_rmse": 3.467189094421638e-14,
+          "observed_weighted_relative_error": 6.301065398253237e-16,
+          "parameter_count": 3396,
+          "compression_ratio": 2.4122497055359244,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            16,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 1.3161729263920379e-15,
+          "max_error": 1.2646393413823086e-13,
+          "observed_relative_frobenius_error": 9.64958981544691e-16,
+          "observed_max_error": 1.1368683772161603e-13,
+          "observed_weighted_rmse": 5.764237927787347e-14,
+          "observed_weighted_relative_error": 1.0475586754848878e-15,
+          "parameter_count": 6468,
+          "compression_ratio": 1.2665429808286952,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            16,
+            2,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 16,
+        "score": 0.19999999999999996,
+        "metric_key": "observed_weighted_relative_error"
+      }
+    },
+    "v": {
+      "dense_parameter_count": 4096,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.4573795882319761,
+          "max_error": 51.020335333234925,
+          "observed_relative_frobenius_error": 0.3435997785532323,
+          "observed_max_error": 37.87306809082064,
+          "observed_weighted_rmse": 16.576834971472227,
+          "observed_weighted_relative_error": 0.30171711323887207,
+          "parameter_count": 32,
+          "compression_ratio": 128.0,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.2115720742033424,
+          "max_error": 28.785429318339993,
+          "observed_relative_frobenius_error": 0.18168769233034285,
+          "observed_max_error": 28.785429318339993,
+          "observed_weighted_rmse": 9.22820251520282,
+          "observed_weighted_relative_error": 0.1679637052587134,
+          "parameter_count": 96,
+          "compression_ratio": 42.666666666666664,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.02970146506335611,
+          "max_error": 6.421335857659323,
+          "observed_relative_frobenius_error": 0.02332823029818659,
+          "observed_max_error": 6.30043770715444,
+          "observed_weighted_rmse": 1.429884437410772,
+          "observed_weighted_relative_error": 0.02602551123077576,
+          "parameter_count": 320,
+          "compression_ratio": 12.8,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 1.4613738972874604e-15,
+          "max_error": 2.2026824808563106e-13,
+          "observed_relative_frobenius_error": 1.2683921632037971e-15,
+          "observed_max_error": 2.2026824808563106e-13,
+          "observed_weighted_rmse": 6.426683419874563e-14,
+          "observed_weighted_relative_error": 1.1697289455325166e-15,
+          "parameter_count": 1152,
+          "compression_ratio": 3.5555555555555554,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 1.3651983523077113e-15,
+          "max_error": 2.0605739337042905e-13,
+          "observed_relative_frobenius_error": 1.1528733059553387e-15,
+          "observed_max_error": 2.0605739337042905e-13,
+          "observed_weighted_rmse": 5.549483420348526e-14,
+          "observed_weighted_relative_error": 1.010068641230995e-15,
+          "parameter_count": 2176,
+          "compression_ratio": 1.8823529411764706,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            8,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 1.4096716070599738e-15,
+          "max_error": 2.0605739337042905e-13,
+          "observed_relative_frobenius_error": 1.1179353983474494e-15,
+          "observed_max_error": 2.0605739337042905e-13,
+          "observed_weighted_rmse": 5.4781908357417993e-14,
+          "observed_weighted_relative_error": 9.970925858742895e-16,
+          "parameter_count": 4224,
+          "compression_ratio": 0.9696969696969697,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            8,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 8,
+        "score": 0.3999934756697159,
+        "metric_key": "observed_weighted_relative_error"
+      }
+    },
+    "a": {
+      "dense_parameter_count": 8192,
+      "rank_sweep": [
+        {
+          "tt_rank": 1,
+          "relative_frobenius_error": 0.7215465774545894,
+          "max_error": 9.715396751575335,
+          "observed_relative_frobenius_error": 0.6923436749226382,
+          "observed_max_error": 9.715396751575335,
+          "observed_weighted_rmse": 4.182828300805235,
+          "observed_weighted_relative_error": 0.9054362401775911,
+          "parameter_count": 34,
+          "compression_ratio": 240.94117647058823,
+          "tt_ranks": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "tt_rank": 2,
+          "relative_frobenius_error": 0.28153554337965403,
+          "max_error": 5.074305522951264,
+          "observed_relative_frobenius_error": 0.24078876737843136,
+          "observed_max_error": 5.074305522951264,
+          "observed_weighted_rmse": 1.0168670997079563,
+          "observed_weighted_relative_error": 0.22011621259773403,
+          "parameter_count": 116,
+          "compression_ratio": 70.62068965517241,
+          "tt_ranks": [
+            1,
+            2,
+            2,
+            2,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 4,
+          "relative_frobenius_error": 0.11445068016497982,
+          "max_error": 1.4802205717114099,
+          "observed_relative_frobenius_error": 0.09273145256984525,
+          "observed_max_error": 1.4802205717114099,
+          "observed_weighted_rmse": 0.4117361992454803,
+          "observed_weighted_relative_error": 0.08912650708566534,
+          "parameter_count": 356,
+          "compression_ratio": 23.01123595505618,
+          "tt_ranks": [
+            1,
+            4,
+            4,
+            4,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 8,
+          "relative_frobenius_error": 0.010471053096053902,
+          "max_error": 0.14616556297727268,
+          "observed_relative_frobenius_error": 0.010051280135504168,
+          "observed_max_error": 0.14616556297727268,
+          "observed_weighted_rmse": 0.06251199270629657,
+          "observed_weighted_relative_error": 0.013531663164634802,
+          "parameter_count": 1220,
+          "compression_ratio": 6.714754098360656,
+          "tt_ranks": [
+            1,
+            8,
+            8,
+            8,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 16,
+          "relative_frobenius_error": 5.485778395712605e-15,
+          "max_error": 7.793765632868599e-14,
+          "observed_relative_frobenius_error": 4.8168067191850105e-15,
+          "observed_max_error": 7.793765632868599e-14,
+          "observed_weighted_rmse": 2.0768509177945828e-14,
+          "observed_weighted_relative_error": 4.495656888558635e-15,
+          "parameter_count": 3396,
+          "compression_ratio": 2.4122497055359244,
+          "tt_ranks": [
+            1,
+            8,
+            16,
+            16,
+            2,
+            1
+          ]
+        },
+        {
+          "tt_rank": 32,
+          "relative_frobenius_error": 5.517163017735789e-15,
+          "max_error": 7.815970093361102e-14,
+          "observed_relative_frobenius_error": 4.844051593801995e-15,
+          "observed_max_error": 7.815970093361102e-14,
+          "observed_weighted_rmse": 2.0979342477895386e-14,
+          "observed_weighted_relative_error": 4.541294934560622e-15,
+          "parameter_count": 6468,
+          "compression_ratio": 1.2665429808286952,
+          "tt_ranks": [
+            1,
+            8,
+            32,
+            16,
+            2,
+            1
+          ]
+        }
+      ],
+      "knee": {
+        "has_clear_knee": true,
+        "suggested_rank": 16,
+        "score": 0.19999999999999996,
+        "metric_key": "observed_weighted_relative_error"
+      }
+    }
+  },
+  "figures": {
+    "q_error_vs_rank": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_td_figures/q_error_vs_rank.svg",
+    "v_error_vs_rank": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_td_figures/v_error_vs_rank.svg",
+    "a_error_vs_rank": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_td_figures/a_error_vs_rank.svg",
+    "v_q_a_comparison": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_td_figures/v_q_a_comparison.svg"
+  }
+}

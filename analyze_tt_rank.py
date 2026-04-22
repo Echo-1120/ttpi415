@@ -37,26 +37,31 @@ def build_single_tensor_figure(
     rank_sweep: list[dict[str, Any]],
 ) -> None:
     x_labels = [str(entry["tt_rank"]) for entry in rank_sweep]
+    weighted_key = "observed_weighted_relative_error"
+    use_weighted = weighted_key in rank_sweep[0]
     save_line_chart_svg(
         output_path=output_path,
         title=f"{tensor_name.upper()} Tensor Error vs TT Rank",
-        subtitle=f"Relative Frobenius reconstruction error for empirical {tensor_name.upper()}",
+        subtitle=f"Observed weighted reconstruction error for empirical {tensor_name.upper()}",
         x_labels=x_labels,
         series=[
             LineSeries(
-                name="All bins",
-                values=tuple(entry["relative_frobenius_error"] for entry in rank_sweep),
+                name="Observed weighted",
+                values=tuple(
+                    entry[weighted_key] if use_weighted else entry["observed_relative_frobenius_error"]
+                    for entry in rank_sweep
+                ),
                 color="#2563eb",
             ),
             LineSeries(
-                name="Observed bins only",
+                name="Observed unweighted",
                 values=tuple(entry["observed_relative_frobenius_error"] for entry in rank_sweep),
                 color="#dc2626",
                 dashed=True,
             ),
         ],
         x_label="TT rank",
-        left_y_label="Relative Frobenius error",
+        left_y_label="Observed relative error",
     )
 
 
@@ -66,30 +71,31 @@ def build_comparison_figure(
 ) -> None:
     q_rank_sweep = analyses["q"]["rank_sweep"]
     x_labels = [str(entry["tt_rank"]) for entry in q_rank_sweep]
+    weighted_key = "observed_weighted_relative_error"
     save_line_chart_svg(
         output_path=output_path,
         title="V / Q / A Low-Rank Comparison",
-        subtitle="Observed-bin reconstruction error across empirical tensors",
+        subtitle="Observed weighted reconstruction error across empirical tensors",
         x_labels=x_labels,
         series=[
             LineSeries(
                 name="V(s)",
-                values=tuple(entry["observed_relative_frobenius_error"] for entry in analyses["v"]["rank_sweep"]),
+                values=tuple(entry.get(weighted_key, entry["observed_relative_frobenius_error"]) for entry in analyses["v"]["rank_sweep"]),
                 color="#7c3aed",
             ),
             LineSeries(
                 name="Q(s,a)",
-                values=tuple(entry["observed_relative_frobenius_error"] for entry in analyses["q"]["rank_sweep"]),
+                values=tuple(entry.get(weighted_key, entry["observed_relative_frobenius_error"]) for entry in analyses["q"]["rank_sweep"]),
                 color="#2563eb",
             ),
             LineSeries(
                 name="A(s,a)",
-                values=tuple(entry["observed_relative_frobenius_error"] for entry in analyses["a"]["rank_sweep"]),
+                values=tuple(entry.get(weighted_key, entry["observed_relative_frobenius_error"]) for entry in analyses["a"]["rank_sweep"]),
                 color="#ea580c",
             ),
         ],
         x_label="TT rank",
-        left_y_label="Observed relative error",
+        left_y_label="Observed weighted relative error",
     )
 
 

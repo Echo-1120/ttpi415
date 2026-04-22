@@ -446,8 +446,12 @@ def analyze_tt_rank_sweep(
             }
         )
 
+    knee_metric_key = "observed_relative_frobenius_error"
+    if rank_results and "observed_weighted_relative_error" in rank_results[0]:
+        knee_metric_key = "observed_weighted_relative_error"
+
     return {
         "dense_parameter_count": dense_parameter_count,
         "rank_sweep": rank_results,
-        "knee": detect_rank_knee(rank_results),
+        "knee": detect_rank_knee(rank_results, metric_key=knee_metric_key),
     }

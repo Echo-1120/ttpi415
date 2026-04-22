@@ -1,0 +1,83 @@
+{
+  "rollout_file": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_rollouts.npz",
+  "output_file": "/home/s110/code/ttpi_new/ppo_mlp_50k_stochastic_vqa_td.npz",
+  "target_mode": "td_bootstrap",
+  "gamma": 0.99,
+  "discretization": {
+    "state_bins": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "obs_low": [
+      -4.8,
+      -3.0,
+      -0.41887903,
+      -3.5
+    ],
+    "obs_high": [
+      4.8,
+      3.0,
+      0.41887903,
+      3.5
+    ],
+    "action_bins": 2
+  },
+  "q_tensor": {
+    "target_mode": "td_bootstrap",
+    "gamma": 0.99,
+    "source": "action_value_target",
+    "tensor_shape": [
+      8,
+      8,
+      8,
+      8,
+      2
+    ],
+    "total_bins": 8192,
+    "visited_bins": 77,
+    "visited_fraction": 0.0093994140625,
+    "total_samples": 50000,
+    "mean_samples_per_visited_bin": 649.3506493506494,
+    "max_samples_per_bin": 4967,
+    "min_samples_per_bin": 1
+  },
+  "v_tensor": {
+    "target_mode": "td_bootstrap",
+    "gamma": 0.99,
+    "source": "state_value_prediction",
+    "tensor_shape": [
+      8,
+      8,
+      8,
+      8
+    ],
+    "total_bins": 4096,
+    "visited_bins": 42,
+    "visited_fraction": 0.01025390625,
+    "total_samples": 50000,
+    "mean_samples_per_visited_bin": 1190.4761904761904,
+    "max_samples_per_bin": 6284,
+    "min_samples_per_bin": 1
+  },
+  "a_tensor": {
+    "target_mode": "td_bootstrap",
+    "gamma": 0.99,
+    "source": "gae_advantage",
+    "tensor_shape": [
+      8,
+      8,
+      8,
+      8,
+      2
+    ],
+    "total_bins": 8192,
+    "visited_bins": 77,
+    "visited_fraction": 0.0093994140625,
+    "total_samples": 50000,
+    "mean_samples_per_visited_bin": 649.3506493506494,
+    "max_samples_per_bin": 4967,
+    "min_samples_per_bin": 1
+  }
+}

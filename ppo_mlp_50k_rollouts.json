@@ -1,0 +1,26 @@
+{
+  "env_id": "CartPole-v1",
+  "seed": 7,
+  "num_steps": 50000,
+  "policy": "ppo_greedy",
+  "checkpoint": "./ppo_mlp_50k.pt",
+  "epsilon": null,
+  "gamma": 0.99,
+  "gae_lambda": 0.95,
+  "model_config": {
+    "actor_arch": "mlp",
+    "critic_arch": "mlp",
+    "hidden_dims": [
+      64,
+      64
+    ],
+    "latent_dim": 64,
+    "activation": "relu",
+    "tt_rank": 4,
+    "tt_order": 3
+  },
+  "episodes_finished": 362,
+  "mean_episode_return": 137.89226519337018,
+  "last_episode_return": 140.0,
+  "output_file": "ppo_mlp_50k_rollouts.npz"
+}

@@ -115,10 +115,18 @@ def main() -> None:
         rollout_data["state_values"],
         dtype=np.float32,
     ) if "state_values" in rollout_data.files else np.full_like(rewards, np.nan, dtype=np.float32)
+    exported_advantages = np.asarray(
+        rollout_data["advantages"],
+        dtype=np.float32,
+    ) if "advantages" in rollout_data.files else np.full_like(rewards, np.nan, dtype=np.float32)
     if np.isfinite(state_values).all():
         v_targets = torch.as_tensor(state_values, dtype=torch.float64)
-        advantage_source = "q_minus_state_value"
-        a_targets = q_targets - v_targets
+        if np.isfinite(exported_advantages).all():
+            advantage_source = "gae_advantage"
+            a_targets = torch.as_tensor(exported_advantages, dtype=torch.float64)
+        else:
+            advantage_source = "q_minus_state_value"
+            a_targets = q_targets - v_targets
     else:
         v_targets = q_targets.clone()
         advantage_source = "q_minus_state_average"

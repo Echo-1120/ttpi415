@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="640" viewBox="0 0 960 640">
+<rect width="100%" height="100%" fill="#f8fafc"/>
+<text x="480.0" y="38" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Q Tensor Error vs TT Rank</text>
+<text x="480.0" y="64" text-anchor="middle" fill="#475569" font-family="Arial, Helvetica, sans-serif" font-size="15">Observed weighted reconstruction error for empirical Q</text>
+<line x1="96" y1="544.00" x2="912" y2="544.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="549.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.00</text>
+<line x1="96" y1="430.50" x2="912" y2="430.50" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="435.50" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.15</text>
+<line x1="96" y1="317.00" x2="912" y2="317.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="322.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.30</text>
+<line x1="96" y1="203.50" x2="912" y2="203.50" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="208.50" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.45</text>
+<line x1="96" y1="90.00" x2="912" y2="90.00" stroke="#cbd5e1" stroke-width="1"/>
+<text x="84" y="95.00" text-anchor="end" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">0.60</text>
+<line x1="96" y1="90" x2="96" y2="544" stroke="#0f172a" stroke-width="2"/>
+<line x1="96" y1="544" x2="912" y2="544" stroke="#0f172a" stroke-width="2"/>
+<line x1="96.00" y1="544" x2="96.00" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="96.00" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">1</text>
+<line x1="259.20" y1="544" x2="259.20" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="259.20" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">2</text>
+<line x1="422.40" y1="544" x2="422.40" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="422.40" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">4</text>
+<line x1="585.60" y1="544" x2="585.60" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="585.60" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">8</text>
+<line x1="748.80" y1="544" x2="748.80" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="748.80" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">16</text>
+<line x1="912.00" y1="544" x2="912.00" y2="550" stroke="#0f172a" stroke-width="1.5"/>
+<text x="912.00" y="572" text-anchor="middle" fill="#334155" font-family="Arial, Helvetica, sans-serif" font-size="13">32</text>
+<polyline points="96.00,360.85 259.20,415.42 422.40,439.86 585.60,482.91 748.80,544.00 912.00,544.00" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="96.00" cy="360.85" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<circle cx="259.20" cy="415.42" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<circle cx="422.40" cy="439.86" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<circle cx="585.60" cy="482.91" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<circle cx="748.80" cy="544.00" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<circle cx="912.00" cy="544.00" r="5.5" fill="#2563eb" stroke="#ffffff" stroke-width="2"/>
+<polyline points="96.00,123.63 259.20,284.36 422.40,361.16 585.60,456.60 748.80,544.00 912.00,544.00" fill="none" stroke="#dc2626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="10 8"/>
+<circle cx="96.00" cy="123.63" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<circle cx="259.20" cy="284.36" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<circle cx="422.40" cy="361.16" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<circle cx="585.60" cy="456.60" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<circle cx="748.80" cy="544.00" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<circle cx="912.00" cy="544.00" r="5.5" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+<line x1="104" y1="84" x2="132" y2="84" stroke="#2563eb" stroke-width="4"/>
+<circle cx="118" cy="84" r="4.5" fill="#2563eb" stroke="#ffffff" stroke-width="1.5"/>
+<text x="142" y="89" text-anchor="start" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="13">Observed weighted</text>
+<line x1="104" y1="108" x2="132" y2="108" stroke="#dc2626" stroke-width="4" stroke-dasharray="10 8"/>
+<circle cx="118" cy="108" r="4.5" fill="#dc2626" stroke="#ffffff" stroke-width="1.5"/>
+<text x="142" y="113" text-anchor="start" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="13">Observed unweighted</text>
+<text x="504.00" y="614" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700">TT rank</text>
+<text x="28" y="317.00" text-anchor="middle" fill="#0f172a" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" transform="rotate(-90 28 317.00)">Observed relative error</text>
+</svg>

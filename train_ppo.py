@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
+from pathlib import Path
+
+import torch
 
 from tt_deep_rl.networks import ModelConfig
 from tt_deep_rl.ppo import PPOConfig, PPOTrainer, save_summary
@@ -31,6 +35,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-grad-norm", type=float, default=0.5)
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--output-json", default="")
+    parser.add_argument("--checkpoint-out", default="")
     return parser.parse_args()
 
 
@@ -70,6 +75,21 @@ def main() -> None:
 
     trainer = PPOTrainer(ppo_config, model_config)
     summary = trainer.train()
+
+    if args.checkpoint_out:
+        checkpoint_path = Path(args.checkpoint_out)
+        checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(
+            {
+                "model_family": "ppo",
+                "env_id": args.env_id,
+                "ppo_config": asdict(ppo_config),
+                "model_config": asdict(model_config),
+                "actor_critic_state_dict": trainer.agent.state_dict(),
+            },
+            checkpoint_path,
+        )
+        summary["checkpoint_out"] = str(checkpoint_path)
 
     if args.output_json:
         save_summary(summary, args.output_json)
